@@ -1,0 +1,85 @@
+
+.tabl {
+font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+text-align: left;
+border-collapse: separate;
+border-spacing: 5px;
+background: #ECE9E0;
+color: #656665;
+border: 16px solid #ECE9E0;
+border-radius: 20px;
+}
+.zagTabl {
+font-size: 18px;
+padding: 10px;
+}
+.stolbTabl {
+background: #F5D7BF;
+padding: 10px;
+}
+
+h1 {
+  font-family: 'Merriweather', serif;
+  font-size: 20px;
+  letter-spacing: 1px;
+  max-width: 320px;
+  width: 100%;
+  position: relative;
+  display: inline-block;
+  color: #465457;
+}
+.d2 h1:before {
+  content: "";
+  position: absolute;
+  top: calc(50% - 5px);
+  left: 0;
+  right: 0;
+  height: 6px;
+  border-top: 2px solid #BBC9C9;
+  border-bottom: 2px solid #BBC9C9;
+  z-index: -1;
+}
+.d2 span {
+  background: white;
+  padding: 0 20px;
+}
+
+.gradient-button {
+  text-decoration: none;
+  display: inline-block;
+  color: white;
+  padding: 20px 30px;
+  margin: 10px 20px;
+  border-radius: 10px;
+  font-family: 'Montserrat', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  background-image: linear-gradient(to right, #9EEFE1 0%, #4830F0 51%, #9EEFE1 100%);
+  background-size: 200% auto;
+  box-shadow: 0 0 20px rgba(0, 0, 0, .1);
+  transition: .5s;
+}
+.gradient-button:hover {
+  background-position: right center;
+}
+
+.pressed-button {
+  text-decoration: none;
+  display: inline-block;
+  padding: 12px 40px;
+  margin: 10px 20px;
+  border-radius: 30px;
+  background-image: linear-gradient(45deg, #6ab1d7 0%, #33d9de 50%, #002878 100%);
+  background-position: 100% 0;
+  background-size: 200% 200%;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 24px;
+  font-weight: 300;
+  color: white;
+  box-shadow: 0 16px 32px 0 rgba(0, 40, 120, .35);
+  transition: .5s;
+}
+.pressed-button:hover {
+  box-shadow: 0 0 0 0 rgba(0, 40, 120, 0);
+  background-position: 0 0;
+}
