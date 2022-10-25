@@ -55,8 +55,9 @@
           {% for t in posts %}
           {% if t.is_saled == False %}
           {% if t.phot != NULL %}
-          <a href="{% url 'advertisement' t.id %}">
-            <div class="col4" height="10px"><img src="{{ t.phot.url }}" width="5px">
+          <div class="col4">
+            <a href="{% url 'advertisement' t.id %}">
+            <img src="{{ t.phot.url }}" width="5px" height="400px">
                 <b><h3 style="text-align: center;">{{ t.name }}</h3></b>
                 <b><h4 style="text-align: center;">Цена: {{ t.price }} доброчасов</h4></b>
          	<b><h4 style="text-align: center; color: black;">Владелец: {{ t.user.username }}</h4></b>

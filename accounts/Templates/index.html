@@ -53,7 +53,7 @@
       {% for t in posts %}
       {% if t.is_saled == False %}
       {% if t.phot != NULL %}
-        <div class="col4"><img src="{{ t.phot.url }}" width="5px">
+        <div class="col4"><img src="{{ t.phot.url }}" width="5px" height="400px">
             <b><h3 style="text-align: center;">{{ t.name }}</h3></b>
             <b><h4 style="text-align: center;">Цена: {{ t.price }} доброчасов</h4></b>
 	</div>
