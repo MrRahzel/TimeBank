@@ -1,0 +1,151 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Тип аккаунта</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--===============================================================================================-->
+	<link rel="icon" type="image/png" href="{% static 'for_login/images/icons/favicon.ico' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'for_login/vendor/bootstrap/css/bootstrap.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'for_login/fonts/font-awesome-4.7.0/css/font-awesome.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'for_login/fonts/Linearicons-Free-v1.0.0/icon-font.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'for_login/vendor/animate/animate.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'for_login/vendor/css-hamburgers/hamburgers.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'for_login/vendor/animsition/css/animsition.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'for_login/vendor/select2/select2.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'for_login/vendor/daterangepicker/daterangepicker.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'for_login/css/util.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'for_login/css/main.css' %}">
+<!--===============================================================================================-->
+<link rel="stylesheet" href="{% static 'for_login/css/style.css' %}">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://use.fontawesome.com/dff66f2cdf.js"></script>
+<style>
+
+  .vx{position: absolute; height: 28px; left: 927px; top: 70px; font-family: 'Inter'; font-style: normal; font-weight: 400; font-size: 18px;
+  	line-height: 28px; display: flex; align-items: center; text-align: right; color: #000000;}
+  .pr{position: absolute; width: 383px; height: 36px; top: 233px; font-family: 'Inter'; font-style: normal; font-weight: 700; font-size: 30px;
+  	line-height: 36px; display: flex; align-items: center; color: #000000;}
+  .pr1{position: absolute; width: 411px; height: 84px; top: 265px; font-family: 'Inter'; font-style: normal; font-weight: 400; font-size: 18px;
+  	line-height: 28px; display: flex; align-items: center; color: #696969;}
+  .bl1{position: absolute; width: 426px; height: 108px; top: 370px; background: #B0E0E6; box-shadow: 0px 2px 14px 1px rgba(0, 0, 0, 0.06); border-radius: 6px;}
+  .bl1x{position: absolute; width: 138px; height: 19px; font-family: 'Inter'; font-style: normal; font-weight: 500; font-size: 16px;
+  	line-height: 19px; display: flex; align-items: center; color: #000000; left: 144px; top: 5px;}
+  .bl1y{position: absolute; width: 224px; height: 34px; font-family: 'Inter'; font-style: normal; font-weight: 400; font-size: 14px; line-height: 17px; display: flex;
+  	align-items: center; color: #696969; left: 144px; top: 40px;}
+  .bl1z{background: #1565D8; display: inline-block; height: 108px; width: 116px; }
+  .str{position: relative; display: inline-block; width: 46px; background: #000000; height: 108px; left: 264px;}
+  .str:hover{-moz-box-shadow: 0 0 10px #000; -webkit-box-shadow: 0 0 10px #000; box-shadow:0 0 10px #000; -webkit-transition: all 0.5s ease; -moz-transition: all 0.5s ease; transition: all 0.5s ease;}
+  .sh{position: absolute; width: 75px; height: 17px; left: 1274px; top: 75px; font-family: 'Inter'; font-style: normal; font-weight: 500; font-size: 14px; line-height: 17px;
+  	display: flex; align-items: center; text-align: right; color: #BDBDBD;}
+  .shadow-text{color: #000000; font-weight: bold; padding: 20px 0px; line-height: 1; -webkit-transition: all 0.5s ease; transition: all 0.5s ease;}
+  .shadow-text:hover{color: #000000; -webkit-text-shadow: 2px 2px 2px #000; -moz-text-shadow: 2px 2px 2px #000; text-shadow: 2px 2px 2px #000;}
+  .lab{position: absolute; width: 187px; height: 19px; left: 593px; font-family: 'Inter'; font-style: normal; font-weight: 500; font-size: 16px; line-height: 19px; display: flex; align-items: center; color: #696F79;}
+</style>
+</head>
+<body style="background-color: #666666;">
+
+	<div class="limiter">
+		<div class="container-login100">
+			<div class="wrap-login100">
+				<form method="post" class="login100-form validate-form">
+          <a href="{% url 'index' %}"><img src="{% static 'for_login\images\icons\favicon.ico' %}" style="width: 30px; height: 30px; margin-top: -170px;"></a>
+          {% csrf_token %}
+              <h1 class="pr">Присоединяйтесь К Нам!</h1>
+              <h3 class="pr1">Чтобы начать это путешествие, скажите нам, какой тип учетной записи вы хотели бы открыть.</h3>
+              <div class="bl1"><h2 class="bl1x"><b>Индивидуальный</b></h2><h3 class="bl1y">Личный кабинет для управления всеми вашими действиями.</h3>
+              <img class="bl1z" src="{% static 'images/ind.png' %}"><a href="{% url 'signup' %}"><img class="str" style="vertical-align: top;" src="{% static "images/s.png" %}"></a>
+              </div>
+              <div class="bl1" style="margin-top: 150px;"><h2 class="bl1x"><b>НКО</b></h2><h3 class="bl1y">Если вы представляете НКО или сообщество, это для вас.</h3>
+              <img class="bl1z" src="{% static 'images/bus.png' %}"><a href="{% url 'signupNKO' %}"><img class="str" style="vertical-align: top;" src="{% static 'images/s.png' %}"></a>
+              </div>
+              <br>
+              <div align='center' style="margin-top: 470px;">
+                Уже есть аккаунт?&nbsp<a href="{% url 'login' %}" class="txt1">Войти в систему</a>
+              </div><br>
+              <div class="text-center p-t-46 p-b-20">
+                <span class="txt2">
+                  Наша группа ВКонтакте
+                </span>
+              </div>
+
+              <div class="login100-form-social flex-c-m">
+                <a href="https://vk.com/darmarka72" class="login100-form-social-item flex-c-m bg1 m-r-5">
+                  <i class="fa fa-vk" aria-hidden="true"></i>
+                </a>
+
+              </div>
+				</form>
+				<div class="login100-more" style="background-image: url({% static 'for_login/images/bg-01.jpg' %});"></div>
+			</div>
+		</div>
+	</div>
+
+
+
+
+
+<!--===============================================================================================-->
+	<script src="{% static 'for_login/vendor/jquery/jquery-3.2.1.min.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'for_login/vendor/animsition/js/animsition.min.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'for_login/vendor/bootstrap/js/popper.js' %}"></script>
+	<script src="{% static 'for_login/vendor/bootstrap/js/bootstrap.min.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'for_login/vendor/select2/select2.min.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'for_login/vendor/daterangepicker/moment.min.js' %}"></script>
+	<script src="{% static 'for_login/vendor/daterangepicker/daterangepicker.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'for_login/vendor/countdowntime/countdowntime.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'for_login/js/main.js' %}"></script>
+
+  <div class="footer">
+      <div class="container">
+          <div class="row">
+              <div class="footer-col1">
+                  <h3>О приложении</h3>
+                  <p>В будущем будет добавлено приложение, скачиваемое по этим ссылкам</p>
+                  <div class="app-logo">
+                      <img src="{% static 'for_login/images/f/play-store.png' %}">
+                      <img src="{% static 'for_login/images/f/app-store.png' %}">
+                  </div>
+              </div>
+              <div class="footer-col2">
+                  <img src="{% static 'for_login/images/f/Logo.jpg' %}">
+                  <p>Мы стремимся сделать услуги доступными для всех</p>
+              </div>
+              <div class="footer-col3">
+                  <h3>Полезные ссылки</h3>
+                  <ul>
+                      <li><a href="{% url 'polojenie' %}">Положение</a></li>
+                      <li><a href="{% url 'partner' %}">Партнеры</a></li>
+                  </ul>
+              </div>
+              <div class="footer-col4">
+                  <h3>Следуйте за нами</h3>
+                  <ul>
+                      <li><a href="https://vk.com/darmarka72">VK</a></li>
+                  </ul>
+              </div>
+          </div>
+          <hr>
+          <p class="copyright">&copy; 2022 TimeBank</p>
+      </div>
+  </div>
+</body>
+</html>

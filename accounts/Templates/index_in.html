@@ -1,0 +1,147 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Банк Времени</title>
+    <link rel="stylesheet" href="{% static 'css/style2_0.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <script src="https://use.fontawesome.com/dff66f2cdf.js"></script>
+</head>
+
+<body>
+    <div class="header">
+
+
+        <div class="container">
+            <div class="navbar">
+                <div class="logo">
+                    <img src="{% static 'imagesM/Logo.jpg' %}" width="125px">
+                </div>
+                <nav>
+                    <ul id="MenuItems">
+                      <li><a href="{% url 'index_in' %}">Главная</a></li>
+                      <li><a href="{% url 'polojenie_in' %}" style="color: black;">О веб-сайте</a></li>
+                      <li><a href="{% url 'search' %}">Поиск</a></li>
+                      <li><a href="{% url 'ads' %}">Мои объявления</a></li>
+                      <li><a href="{% url 'profile' %}">Личный кабинет</a></li>
+                    </ul>
+                </nav>
+                <img src="{% static 'imagesM/cart.png' %}" width="30px" height="30px">
+                <img src="{% static 'imagesM/menu.png' %}" class="menu-icon" onclick="menutoggle()">
+            </div>
+            <div class="row">
+                <div class="col2">
+                  <h1>Первый региональный центр социальной взаимопомощи в формате банка времени.</h1>
+                  <p>Добро пожаловать в электронную систему, которая позволяет вести учет времени, которое участник тратит на добрые дела.
+                    <br>Время, которое было использовано для доброго дела для других, можно будет потратить с пользой для себя!</p>
+                    <a href="{% url 'search' %}" class="btn">Исследуйте прямо сейчас! &#8594;</a>
+                </div>
+                <div class="col2">
+                    <img src="{% static "imagesM/labor.jpg" %}" alt="">
+                </div>
+            </div>
+
+        </div>
+      </div>
+        <h2 class="title">Продукты</h2>
+        <div class="row">
+          {% for t in posts %}
+          {% if t.is_saled == False %}
+          {% if t.phot != NULL %}
+          <div class="col4">
+            <a href="{% url 'advertisement' t.id %}">
+            <img src="{{ t.phot.url }}" width="5px" height="400px">
+                <b><h3 style="text-align: center;">{{ t.name }}</h3></b>
+                <b><h4 style="text-align: center;">Цена: {{ t.price }} доброчасов</h4></b>
+         	<b><h4 style="text-align: center; color: black;">Владелец: {{ t.user.username }}</h4></b>
+		<b><h4 style="text-align: center; color: black;border-radius:5px;">Связаться: {{ t.user.email }}</h4></b>
+	    </div>
+    </a>
+            {% endif %}
+            {% endif %}
+            {% endfor %}
+
+            {% block pagination %}
+              {% include 'pagination.html' %}
+            {% endblock %}
+
+        </div>
+
+    <!------------offer -->
+    <div class="offer">
+        <div class="small-container">
+            <div class="row">
+                <div class="col2">
+                    <img src="images/exclusive.png" class="offer-img" alt="">
+                </div>
+                <div class="col2">
+                    <p>Доступно исключительно на веб-сайте Банк Времени</p>
+                    <h1>Услуги по запросу</h1>
+                    <small>Теперь вы можете заказать и позвонить по любому поводу в любом месте, и мы можем вам в этом
+                        помочь.</small><br>
+                    <a href="{% url 'search' %}" class="btn">Купить сейчас &#8594;</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-----------------   Отзывы   ---------------->
+
+    <!-----------       footer ------------>
+    <div class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="footer-col1">
+                    <h3>О приложении</h3>
+                    <p>В будущем будет добавлено приложение, скачиваемое по этим ссылкам</p>
+                    <div class="app-logo">
+                        <img src="{% static 'for_login/images/f/play-store.png' %}">
+                        <img src="{% static 'for_login/images/f/app-store.png' %}">
+                    </div>
+                </div>
+                <div class="footer-col2">
+                    <img src="{% static 'for_login/images/f/Logo.jpg' %}">
+                    <p>Мы стремимся сделать услуги доступными для всех</p>
+                </div>
+                <div class="footer-col3">
+                    <h3>Полезные ссылки</h3>
+                    <ul>
+                        <li><a href="{% url 'polojenie_in' %}">Положение</a></li>
+                        <li><a href="{% url 'partner_in' %}">Партнеры</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col4">
+                    <h3>Следуйте за нами</h3>
+                    <ul>
+                        <li><a href="https://vk.com/darmarka72">VK</a></li>
+                    </ul>
+                </div>
+            </div>
+            <hr>
+            <p class="copyright">&copy; 2022 TimeBank</p>
+        </div>
+    </div>
+    <!-----js for toggle menu------>
+    <script>
+        var MenuItems = document.getElementById("MenuItems");
+        MenuItems.style.maxHeight = "0px";
+        function menutoggle() {
+            if (MenuItems.style.maxHeight == "0px") {
+                MenuItems.style.maxHeight = "200px"
+            }
+            else {
+                MenuItems.style.maxHeight = "0px"
+            }
+        }
+    </script>
+
+
+</body>
+
+</html>

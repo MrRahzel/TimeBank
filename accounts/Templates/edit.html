@@ -1,0 +1,133 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Редактирование объявления</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--===============================================================================================-->
+	<link rel="icon" type="image/png" href="{% static 'for_login/images/icons/favicon.ico' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'for_login/vendor/bootstrap/css/bootstrap.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'for_login/fonts/font-awesome-4.7.0/css/font-awesome.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'for_login/fonts/Linearicons-Free-v1.0.0/icon-font.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'for_login/vendor/animate/animate.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'for_login/vendor/css-hamburgers/hamburgers.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'for_login/vendor/animsition/css/animsition.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'for_login/vendor/select2/select2.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'for_login/vendor/daterangepicker/daterangepicker.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'for_login/css/util.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'for_login/css/main.css' %}">
+<!--===============================================================================================-->
+<link rel="stylesheet" href="{% static 'for_login/css/style.css' %}">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://use.fontawesome.com/dff66f2cdf.js"></script>
+</head>
+<body style="background-color: #666666;">
+
+	<div class="limiter">
+		<div class="container-login100">
+			<div class="wrap-login100">
+				<form method="post" class="login100-form validate-form" enctype="multipart/form-data">
+          <a href="{% url 'ads' %}"><h6>( < )Назад</h6></a>
+          {% csrf_token %}
+					<span class="login100-form-title p-b-43" style="margin-top: 70px;">
+						Объявление
+					</span>
+
+
+					<div class="wrap-input100 validate-input">
+						<input class="input100" type="text" name = "name" value="{{prod.name}}" />
+						<span class="focus-input100"></span>
+						<span class="label-input100">Наименование</span>
+					</div>
+					<div class="wrap-input100 validate-input">
+            <input class="input100" type="text" name = "description" value="{{prod.description}}" />
+						<span class="focus-input100"></span>
+						<span class="label-input100">Описание</span>
+					</div>
+          <div class="wrap-input100 validate-input">
+            <input class="input100" type="number" name = "price" value="{{prod.price}}" />
+						<span class="focus-input100"></span>
+						<span class="label-input100">Цена</span>
+					</div>
+          <br>
+					<div class="container-login100-form-btn">
+						<button type="submit" class="login100-form-btn">
+							Сохранить
+						</button>
+					</div>
+
+				</form>
+
+				<div class="login100-more" style="background-image: url({% static 'for_login/images/bg-01.jpg' %});"></div>
+			</div>
+		</div>
+	</div>
+
+
+
+
+
+<!--===============================================================================================-->
+	<script src="{% static 'for_login/vendor/jquery/jquery-3.2.1.min.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'for_login/vendor/animsition/js/animsition.min.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'for_login/vendor/bootstrap/js/popper.js' %}"></script>
+	<script src="{% static 'for_login/vendor/bootstrap/js/bootstrap.min.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'for_login/vendor/select2/select2.min.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'for_login/vendor/daterangepicker/moment.min.js' %}"></script>
+	<script src="{% static 'for_login/vendor/daterangepicker/daterangepicker.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'for_login/vendor/countdowntime/countdowntime.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'for_login/js/main.js' %}"></script>
+
+  <div class="footer">
+      <div class="container">
+          <div class="row">
+              <div class="footer-col1">
+                  <h3>О приложении</h3>
+                  <p>В будущем будет добавлено приложение, скачиваемое по этим ссылкам</p>
+                  <div class="app-logo">
+                      <img src="{% static 'for_login/images/f/play-store.png' %}">
+                      <img src="{% static 'for_login/images/f/app-store.png' %}">
+                  </div>
+              </div>
+              <div class="footer-col2">
+                  <img src="{% static 'for_login/images/f/Logo.jpg' %}">
+                  <p>Мы стремимся сделать услуги доступными для всех</p>
+              </div>
+              <div class="footer-col3">
+                  <h3>Полезные ссылки</h3>
+                  <ul>
+                      <li><a href="{% url 'polojenie_in' %}">Положение</a></li>
+                      <li><a href="{% url 'partner_in' %}">Партнеры</a></li>
+                  </ul>
+              </div>
+              <div class="footer-col4">
+                  <h3>Следуйте за нами</h3>
+                  <ul>
+                      <li><a href="https://vk.com/darmarka72">VK</a></li>
+                  </ul>
+              </div>
+          </div>
+          <hr>
+          <p class="copyright">&copy; 2022 TimeBank</p>
+      </div>
+  </div>
+</body>
+</html>
