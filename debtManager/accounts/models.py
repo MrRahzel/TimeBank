@@ -2,6 +2,7 @@ from django.db import models
 from django.conf import settings
 from django.contrib.auth.forms import UserCreationForm
 from django.core.validators import MinLengthValidator
+from django.core.exceptions import ValidationError
 
 # Create your models here.
 from django.contrib.auth.models import User
@@ -28,16 +29,28 @@ class Usvers(models.Model):
 
 
 class Products(models.Model):
+  def file_size(value): # add this to some file where you can import it from
+    limit = 2 * 1024 * 1024
+    if value.size > limit:
+        raise ValidationError('Файл слишком большой. Размер не должен превышать 2МБ')
+
+
+  def file_size2(value): # add this to some file where you can import it from
+    limit = 20
+    if len(value) < limit:
+        raise ValidationError('Длина описания меньше 20ти символов!')
+
+
   user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
   #user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
   #usver = models.ForeignKey(Usvers, default = user, on_delete=models.CASCADE)
   name = models.CharField(max_length=200)
-  description = models.CharField(validators=[MinLengthValidator(20)], max_length=500)
+  description = models.CharField(validators=[file_size2], max_length=500)
   price = models.IntegerField()
   category = models.CharField(max_length=200, default = 'Товар')
   is_saled = models.BooleanField(default = False)
   to_who = models.CharField(max_length=200, default=None, null=True, blank=True)
-  phot = models.ImageField(upload_to='images/', default=None, null=True)
+  phot = models.ImageField(upload_to='images/', default=None, null=True, validators=[file_size])
   wanttobuy = models.CharField(max_length=200, default = 'Продать')
 
 

@@ -51,6 +51,7 @@
 						<span class="focus-input100"></span>
 						<span class="label-input100">Наименование</span>
 					</div>
+					<h6 style="color: red;">{{ form.description.errors }}</h6>
 					<div class="wrap-input100 validate-input">
             <input class="input100" type="text" name="description" maxlength="500" required="" id="id_description">
 						<span class="focus-input100"></span>
@@ -76,9 +77,10 @@
 						<span class="label-input100">Покупка/Продажа</span>
 					</div>
 					<div class="wrap-input100">
+						<h6 style="color: red;">{{ form.phot.errors }}</h6>
 						<input type="file" name="phot" accept="image/*" required="" id="id_phot">
 						<span class="focus-input100"></span>
-						<span class="label-input100">Фотография</span>
+						<span class="label-input100">Фотография(размер не должен превышать 2 МБ)</span>
 					</div>
           <br>
 					<div class="container-login100-form-btn">

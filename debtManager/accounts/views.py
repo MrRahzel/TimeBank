@@ -284,10 +284,13 @@ def product(request):
                 saving = form.save(commit=False)
                 saving.user = request.user
                 saving.save()
+                if (description != form.cleaned_data["description"]):
+                    print('неккоректно')
                 return redirect('ads')
             else:
                 error = 'Некорректная форма'
-        form = addProduct()
+        else:
+            form = addProduct()
         context = {'form': form, 'error' : error, "is_NKO":us.is_NKO}
         return render(request, 'products.html', context)
 
