@@ -4,3 +4,4 @@ db.sqlite3
 debug.log
 debtManager.sock
 accounts/media/images/
+debtManager/settings.py
