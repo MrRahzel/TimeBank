@@ -1,27 +1,27 @@
 {% load static %}
+<!DOCTYPE html>
+<html lang="en">
 
-{% if posts.has_other_pages %}
-<nav id="pagination" class="col align-self-center" aria-label="Page navigation example">
-    <ul class="pagination">
-    {% if posts.has_previous %}
-        <li class="page-item"><a class="page-link" href="?page={{ posts.previous_page_number }}">&laquo;</a></li>
-    {% else %}
-    <li class="page-item disabled"><span class="page-link" href="#" tabindex="-1" aria-disabled="true">&laquo;</span></li>
-    {% endif %}
-    {% for i in posts.paginator.page_range %}
-        {% if i > posts.number|add:-4 and i < posts.number|add:4 %}
-            {% if posts.number == i %}
-                <li class="page-item active" aria-current="page"><a class="page-link" href="#">{{ i }} <span class="sr-only">(current)</span></a></li>
-            {% else %}
-                <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
-            {% endif %}
-        {% endif %}
-    {% endfor %}
-    {% if posts.has_next %}
-        <li class="page-item"><a class="page-link" href="?page={{ posts.next_page_number }}">&raquo;</a></li>
-    {% else %}
-    <li class="page-item disabled"><span class="page-link" href="#" tabindex="-1" aria-disabled="true">&raquo;</span></li>
-    {% endif %}
-    </ul>
-</nav>
-{% endif %}
+
+<body>
+
+  <div class="pagination">
+      <span class="step-links">
+          {% if posts.has_previous %}
+              <a href="?page=1">&laquo; Первая</a>
+              <a href="?page={{ posts.previous_page_number }}">⟵</a>
+          {% endif %}
+
+          <span class="current">
+              Стр. {{ posts.number }} из {{ posts.paginator.num_pages }}.
+          </span>
+
+          {% if posts.has_next %}
+              <a href="?page={{ posts.next_page_number }}">⟶</a>
+              <a href="?page={{ posts.paginator.num_pages }}">Последняя &raquo;</a>
+          {% endif %}
+      </span>
+  </div>
+</body>
+
+</html>
