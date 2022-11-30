@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '0n=zsc005_rq2)$f!&jca7ie8$a%*(9&+20%vmbf3g3q4n_*aj'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['timebank72.ru', 'www.timebank72.ru', 'localhost']
 #CSRF_TRUSTED_ORIGINS = ['https://timebank72.ru']
@@ -132,8 +132,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 #STATIC_DIR = os.path.join(BASE_DIR, '/home/user1/var/www/timebank72/debtManager/accounts/static')
 STATICFILES_DIRS = [os.path.join(BASE_DIR, '/var/www/timebank72.ru/debtManager/accounts/static/')]
-STATIC_URL = '/debtManager/accounts/static/'
-#STATIC_URL = 'static'
+#STATIC_URL = '/debtManager/accounts/static/'
+STATIC_URL = 'static'
 STATIC_ROOT= os.path.join(BASE_DIR, "/var/www/timebank72.ru/static/")
 #MEDIA_URL = '/debtManager/accounts/media/'
 MEDIA_URL = '/media/'
