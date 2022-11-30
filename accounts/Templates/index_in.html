@@ -13,6 +13,32 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
     <script src="https://use.fontawesome.com/dff66f2cdf.js"></script>
+    <script>
+    var tabCount = 2;
+    function SelectTab(idx) {
+      for (var i = 1; i <= tabCount; ++i)
+        {
+          var _tab = document.getElementById("tab"+i);
+          var _tabTitle = document.getElementById("tab-title"+i);
+          if (idx != i) {
+            _tab.setAttribute("class", "tab");
+            _tabTitle.setAttribute("class", "tab-title");
+            }
+          else {
+            _tab.setAttribute("class", "tab selected");
+            _tabTitle.setAttribute("class", "tab-title selected-li");
+            }
+        }
+      }
+    </script>
+    <style>
+    #tabs, #tabs-title { text-align: center;  margin: 0 auto 80px; position: relative; line-height: 60px; color: #555; clear: both;}
+    #tabs-title { height: 25px;}
+    .tab-title { cursor: pointer; margin-right: 10px; padding: 0 5px; list-style: none; }
+    .selected-li, #tabs-title li:hover  { border: 3px solid #ff523b;}
+    .tab { padding: 50px; display: none; text-align: justify;}
+    .selected { display: block; }
+    </style>
 </head>
 
 <body>
@@ -50,31 +76,74 @@
 
         </div>
       </div>
-        <h2 class="title">Продукты</h2>
-        <div class="row">
+      <h2 class="title">Продукты</h2>
+        <h2>
+          <ul id="tabs-title" style="width: 400px;">
+              <li id="tab-title1" onclick="SelectTab(1);" class="tab-title selected-li">Предлагаемые</li>
+              <li id="tab-title2" onclick="SelectTab(2);" class="tab-title">Запрашиваемые</li>
+          </ul>
+        </h2>
+      <div id="tabs">
+       <div class="tab selected" id="tab1">
+         <div class="row">
+
           {% for t in posts %}
           {% if t.is_saled == False %}
           {% if t.phot != NULL %}
+          {% if t.wanttobuy == "Продать" %}
           <div class="col4">
             <a href="{% url 'advertisement' t.id %}">
             <img src="{{ t.phot.url }}" width="5px" height="400px">
-                <b><h3 style="text-align: center;">{{ t.name }}</h3></b>
+                <b><h3 style="text-align: center; text-decoration-line: underline overline #ff523b dashed;
+                border-bottom: 1px dashed #ff523b; border-top:1px dashed #ff523b; padding-bottom: 1px; height: 100px;">{{ t.name }}</h3></b>
                 <b><h4 style="text-align: center;">Цена: {{ t.price }} доброчасов</h4></b>
-         	<b><h4 style="text-align: center; color: black;">Владелец: {{ t.user.username }}</h4></b>
-		<b><h4 style="text-align: center; color: black;border-radius:5px;">Связаться: {{ t.user.email }}</h4></b>
-	    </div>
-    </a>
+         	      <b><h4 style="text-align: center; color: black;">Владелец: {{ t.user.username }}</h4></b>
+		            <b><h4 style="text-align: center; color: black;border-radius:5px;">Связаться: {{ t.user.email }}</h4></b>
+	         </div>
+            </a>
+            {% endif %}
             {% endif %}
             {% endif %}
             {% endfor %}
 
-<div>
+        </div>
+        </div>
+
+      <div class="tab" id="tab2">
+        <div class="row">
+
+         {% for t in posts %}
+         {% if t.is_saled == False %}
+         {% if t.phot != NULL %}
+         {% if t.wanttobuy == "Купить" %}
+         <div class="col4">
+           <a href="{% url 'advertisement' t.id %}">
+           <img src="{{ t.phot.url }}" width="5px" height="400px">
+               <b><h3 style="text-align: center; text-decoration-line: underline overline #ff523b dashed;
+               border-bottom: 1px dashed #ff523b; border-top:1px dashed #ff523b; padding-bottom: 1px; height: 100px;">{{ t.name }}</h3></b>
+               <b><h4 style="text-align: center;">Цена: {{ t.price }} доброчасов</h4></b>
+               <b><h4 style="text-align: center; color: black;">Владелец: {{ t.user.username }}</h4></b>
+               <b><h4 style="text-align: center; color: black;border-radius:5px;">Связаться: {{ t.user.email }}</h4></b>
+          </div>
+           </a>
+           {% endif %}
+           {% endif %}
+           {% endif %}
+           {% endfor %}
+
+       </div>
+       </div>
+
+      </div>
+
+      <center>
+      <div>
             {% block pagination %}
               {% include 'pagination.html' %}
-            {% endblock %}
 
-</div>
-        </div>
+            {% endblock %}
+      </div>
+      </center>
 
     <!------------offer -->
     <div class="offer">

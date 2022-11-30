@@ -278,14 +278,15 @@ def product(request):
     else:
         error = ''
         us = Usvers.objects.get(user=request.user)
+        pr = Products.objects.all()
         if request.method == "POST":
             form = addProduct(request.POST, request.FILES)
             if form.is_valid():
                 saving = form.save(commit=False)
                 saving.user = request.user
                 saving.save()
-                if (description != form.cleaned_data["description"]):
-                    print('неккоректно')
+                #if (pr.description != form.cleaned_data["description"]):
+                #    print('неккоректно')
                 return redirect('ads')
             else:
                 error = 'Некорректная форма'
