@@ -75,12 +75,20 @@
         </div>
     </div>
     <h2 class="title">Продукты</h2>
-      <h2>
+    <h2>
+        {% if want == 'sale' %}
         <ul id="tabs-title" style="width: 400px;">
-            <li id="tab-title1" onclick="SelectTab(1);" class="tab-title selected-li">Предлагаемые</li>
-            <li id="tab-title2" onclick="SelectTab(2);" class="tab-title">Запрашиваемые</li>
+            <a href='?page={{ page_c }}&want=sale'><li id="tab-title1" class="tab-title selected-li">Предлагаемые</li></a>
+            <a href='?page={{ page_c }}&want=buy'><li id="tab-title2" class="tab-title">Запрашиваемые</li></a>
         </ul>
-      </h2>
+        {% endif %}
+        {% if want == 'buy' %}
+        <ul id="tabs-title" style="width: 400px;">
+            <a href='?page={{ page_c }}&want=sale'><li id="tab-title1" class="tab-title">Предлагаемые</li></a>
+            <a href='?page={{ page_c }}&want=buy'><li id="tab-title2" class="tab-title selected-li">Запрашиваемые</li></a>
+        </ul>
+        {% endif %}
+    </h2>
     <div id="tabs">
      <div class="tab selected" id="tab1">
        <div class="row">
@@ -88,13 +96,11 @@
         {% for t in posts %}
         {% if t.is_saled == False %}
         {% if t.phot != NULL %}
-        {% if t.wanttobuy == "Продать" %}
-          <div class="col4"><img src="{{ t.phot.url }}" width="5px" height="400px">
+          <div class="col4"><img src="{{ t.phot.url }}" style="width: 400px; height: 400px;">
               <b><h3 style="text-align: center; text-decoration-line: underline overline #ff523b dashed;
               border-bottom: 1px dashed #ff523b; border-top:1px dashed #ff523b; padding-bottom: 1px;">{{ t.name }}</h3></b>
               <b><h4 style="text-align: center;">Цена: {{ t.price }} доброчасов</h4></b>
   	      </div>
-          {% endif %}
           {% endif %}
           {% endif %}
           {% endfor %}
@@ -108,13 +114,11 @@
        {% for t in posts %}
        {% if t.is_saled == False %}
        {% if t.phot != NULL %}
-       {% if t.wanttobuy == "Купить" %}
-         <div class="col4"><img src="{{ t.phot.url }}" width="5px" height="400px">
+         <div class="col4"><img src="{{ t.phot.url }}" style="width: 400px; height: 400px;">
              <b><h3 style="text-align: center; text-decoration-line: underline overline #ff523b dashed;
              border-bottom: 1px dashed #ff523b; border-top:1px dashed #ff523b; padding-bottom: 1px;">{{ t.name }}</h3></b>
              <b><h4 style="text-align: center;">Цена: {{ t.price }} доброчасов</h4></b>
          </div>
-         {% endif %}
          {% endif %}
          {% endif %}
          {% endfor %}

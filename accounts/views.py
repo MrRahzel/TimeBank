@@ -214,7 +214,11 @@ from .models import Products
 from .forms import addProduct
 
 def index(request):
-    posts = Products.objects.all().order_by('-id')
+    want = request.GET.get("want", 'sale')
+    if want == 'sale':
+        posts = Products.objects.filter(wanttobuy="Продать").order_by('-id')
+    elif want == 'buy':
+        posts = Products.objects.filter(wanttobuy="Купить").order_by('-id')
     if 'page' in request.GET:
         page = request.GET['page']
     else:
@@ -228,7 +232,7 @@ def index(request):
         posts = paginator.page(paginator.num_pages)
     if request.user.is_authenticated:
         return HttpResponseRedirect('/profile/index')
-    return render(request, 'index.html', {"posts" : posts})
+    return render(request, 'index.html', {"posts" : posts, "want": want, "page_c": page})
 
 
 
@@ -236,7 +240,11 @@ def index_in(request):
     if not request.user.is_authenticated:
         return redirect('signup_before')
     else:
-        posts = Products.objects.all().order_by('-id')
+        want = request.GET.get("want", 'sale')
+        if want == 'sale':
+            posts = Products.objects.filter(wanttobuy="Продать").order_by('-id')
+        elif want == 'buy':
+            posts = Products.objects.filter(wanttobuy="Купить").order_by('-id')
         if 'page' in request.GET:
             page = request.GET['page']
         else:
@@ -248,7 +256,7 @@ def index_in(request):
             posts = paginator.page(1)
         except EmptyPage:
             posts = paginator.page(paginator.num_pages)
-        return render(request, 'index_in.html', {"posts" : posts})
+        return render(request, 'index_in.html', {"posts" : posts, "want": want, "page_c": page})
 
 def pj(request):
     if request.user.is_authenticated:
