@@ -116,13 +116,16 @@ p {
 .col4 {
     flex-basis: 25%;
     padding: 10px;
-    min-width: 200px;
+    min-width: 400px;
+    min-height: 400px;
+    max-height: 600px;
     margin-bottom: 50px;
     transition: transform 0.5s;
 }
 
 .col4 img {
-    width: 100%;
+    min-width: 300px;
+    min-height: 400px;
 }
 
 .title {
