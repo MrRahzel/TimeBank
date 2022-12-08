@@ -78,17 +78,38 @@
     <h2>
         {% if want == 'sale' %}
         <ul id="tabs-title" style="width: 400px;">
-            <a href='?page={{ page_c }}&want=sale'><li id="tab-title1" class="tab-title selected-li">Предлагаемые</li></a>
-            <a href='?page={{ page_c }}&want=buy'><li id="tab-title2" class="tab-title">Запрашиваемые</li></a>
+            <a href='?search={{ query }}&page={{ page_c }}&want=sale'><li id="tab-title1" class="tab-title selected-li">Предлагаемые</li></a>
+            <a href='?search={{ query }}&page={{ page_c }}&want=buy'><li id="tab-title2" class="tab-title">Запрашиваемые</li></a>
         </ul>
         {% endif %}
         {% if want == 'buy' %}
         <ul id="tabs-title" style="width: 400px;">
-            <a href='?page={{ page_c }}&want=sale'><li id="tab-title1" class="tab-title">Предлагаемые</li></a>
-            <a href='?page={{ page_c }}&want=buy'><li id="tab-title2" class="tab-title selected-li">Запрашиваемые</li></a>
+            <a href='?search={{ query }}&page={{ page_c }}&want=sale'><li id="tab-title1" class="tab-title">Предлагаемые</li></a>
+            <a href='?search={{ query }}&page={{ page_c }}&want=buy'><li id="tab-title2" class="tab-title selected-li">Запрашиваемые</li></a>
         </ul>
         {% endif %}
     </h2>
+    <br><br><br>
+  <center>
+    <form action="{% url 'index' %}" method="get" style="width: 500px; padding: 20px;">
+      <div class="wrap-input100 validate-input">
+        <input class="input100" type="text" name="search" class="form-input" autocapitalize="none" autofocus="" required="" placeholder="Поиск товара или услуги">
+        <span class="focus-input100"></span>
+      </div>
+        <button type="submit" class="button6">
+          Найти
+        </button>
+    </form>
+<br><br><br><br><br>
+    <center>
+       <div>
+              {% block pagination2 %}
+                {% include 'pagination.html' %}
+
+              {% endblock %}
+       </div>
+    </center>
+<br>
     <div id="tabs">
      <div class="tab selected" id="tab1">
        <div class="row">
