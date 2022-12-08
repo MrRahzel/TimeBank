@@ -138,14 +138,22 @@ label {
 }
 
 /*---------------------------------------------*/
-button {
-	outline: none !important;
-	border: none;
-	background: transparent;
-}
 
-button:hover {
-	cursor: pointer;
+.button6 {
+    position: relative;
+    font-weight: bold;
+    color: white;
+    text-decoration: none;
+    text-shadow: 0 -1px 1px #cc5500;
+    user-select: none;
+    padding: 0.8em 2em;
+    outline: none;
+    border-radius: 1px;
+    background: linear-gradient(to left, rgba(0,0,0,.3), rgba(0,0,0,.0) 50%, rgba(0,0,0,.3)), linear-gradient(#000080, #0000FF, #000080);
+    background-size: 100% 100%, auto;
+    background-position: 50% 50%;
+    box-shadow: inset #4169e1 0 -1px 1px, inset 0 1px 1px #6495ed, #00008b 0 0 0 1px, #000 0 10px 15px -10px;
+    transition: 0.2s;
 }
 
 iframe {

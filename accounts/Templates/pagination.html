@@ -8,8 +8,8 @@
   <div class="pagination">
       <span class="step-links">
           {% if posts.has_previous %}
-              <a href="?page=1&want={{ want }}">&laquo; Первая</a>
-              <a href="?page={{ posts.previous_page_number }}&want={{ want }}">⟵</a>
+              <a href="?search={{ query }}&page=1&want={{ want }}">&laquo; Первая</a>
+              <a href="?search={{ query }}&page={{ posts.previous_page_number }}&want={{ want }}">⟵</a>
           {% endif %}
 
           <span class="current">
@@ -17,8 +17,8 @@
           </span>
 
           {% if posts.has_next %}
-              <a href="?page={{ posts.next_page_number }}&want={{ want }}">⟶</a>
-              <a href="?page={{ posts.paginator.num_pages }}&want={{ want }}">Последняя &raquo;</a>
+              <a href="?search={{ query }}&page={{ posts.next_page_number }}&want={{ want }}">⟶</a>
+              <a href="?search={{ query }}&page={{ posts.paginator.num_pages }}&want={{ want }}">Последняя &raquo;</a>
           {% endif %}
       </span>
   </div>
