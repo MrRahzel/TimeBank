@@ -1,0 +1,208 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Мои транзакции</title>
+    <link rel="stylesheet" href="{% static 'css/style2_0.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <script src="https://use.fontawesome.com/dff66f2cdf.js"></script>
+    <script>
+    var tabCount = 2;
+    function SelectTab(idx) {
+      for (var i = 1; i <= tabCount; ++i)
+        {
+          var _tab = document.getElementById("tab"+i);
+          var _tabTitle = document.getElementById("tab-title"+i);
+          if (idx != i) {
+            _tab.setAttribute("class", "tab");
+            _tabTitle.setAttribute("class", "tab-title");
+            }
+          else {
+            _tab.setAttribute("class", "tab selected");
+            _tabTitle.setAttribute("class", "tab-title selected-li");
+            }
+        }
+      }
+    </script>
+    <style>
+      a.blank {
+        font-weight: bold;
+        color: blue;
+      }
+      table {
+        border-spacing: 0 10px;
+        font-family: 'Open Sans', sans-serif;
+        font-weight: bold;
+        table-layout:fixed;
+        margin-right: 130px;
+        overflow-y:scroll;
+        height:454px;
+        display:block;
+      }
+      th {
+        padding: 10px 20px;
+        background: #0000CD;
+        color: #FFFFFF;
+        border-right: 2px solid;
+        font-size: 0.9em;
+      }
+      th:first-child {
+        text-align: left;
+      }
+      th:last-child {
+        border-right: none;
+      }
+      td {
+        vertical-align: top;
+        background: #87CEFA;
+        color: #000080;
+        padding: 10px;
+
+        font-size: 14px;
+        text-align: center;
+        border-top: 2px solid #56433D;
+        border-bottom: 2px solid #56433D;
+        border-right: 2px solid #56433D;
+      }
+      td:first-child {
+        vertical-align: top;
+        border-left: 2px solid #56433D;
+      }
+      td:nth-child(2){
+        vertical-align: top;
+        text-align: left;
+      }
+      .button6 {
+        text-decoration: none;
+        display: inline;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 10px;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        background-image: linear-gradient(to right, #9EEFE1 0%, #4830F0 51%, #9EEFE1 100%);
+        background-size: 200% auto;
+        box-shadow: 0 0 20px rgba(0, 0, 0, .1);
+        transition: .5s;
+        text-align: center;
+      }
+      .button6:hover {
+        background-position: right center;
+      }
+      .noBorder {
+        border-collapse: collapse;
+        border-spacing: 0;
+        border: none transparent;
+        border-radius: 0px;
+        background: #CCC;
+      }
+
+
+      #tabs, #tabs-title { padding: 0px; margin: 0px; clear: both; width: 1170px; border: 1px solid #0000CD;}
+      #tabs-title { background: #00008B; height: 25px; }
+      .tab-title { cursor: pointer; background: #4682B4; margin-right: 10px; padding: 0 5px; list-style: none; float: left; }
+      .selected-li, #tabs-title li:hover { background: #1E90FF; }
+      .tab { padding: 10px; display: none; background: #CCC; text-align: justify;  }
+      .selected { display: block; }
+    </style>
+</head>
+
+<body style="background: aliceblue;">
+    <div class="header" style="background: aliceblue;">
+
+
+        <div class="container">
+            <div class="navbar">
+                <div class="logo">
+                    <img src="{% static 'imagesM/Logo.jpg' %}" width="125px">
+                </div>
+                <nav>
+                    <ul id="MenuItems">
+                        <li><a href="{% url 'index_in' %}">Главная</a></li>
+                        <li><a href="{% url 'polojenie_in' %}" style="color: black;">О веб-сайте</a></li>
+                        <li><a href="{% url 'search' %}">Поиск</a></li>
+                        <li><a href="{% url 'ads' %}">Мои объявления</a></li>
+                        <li><a href="{% url 'profile' %}">Личный кабинет</a></li>
+                    </ul>
+                </nav>
+                <img src="{% static 'imagesM/cart.png' %}" width="30px" height="30px">
+                <img src="{% static 'imagesM/menu.png' %}" class="menu-icon" onclick="menutoggle()">
+            </div>
+            <a href="{% url 'profile' %}"><br><h5>< Назад к профилю</h5></a>
+              <center><h1>Все просмотры</h1></center>
+            <div class="row">
+                  {% block content %}
+                  		<table style="overflow-y:scroll; height:580px; display:block; background-color: #A9A9A9;">
+                    		<tr><th>Пользователь</th><th>Просмотренный продукт</th><th>Дата</th></tr>
+                    		{% for el in views %}
+                    		<tr class='success'>
+                    			<td>{{ el.user.username }}</td>
+                    			<td>{{ el.product }}</td>
+                    			<td>{{ el.time }}</td>
+                    		</tr>
+                    		{% endfor %}
+                  		</table>
+                  {% endblock %}
+            </div>
+        </div>
+    </div>
+<br><br>
+    <!-----------       footer ------------>
+    <div class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="footer-col1">
+                    <h3>О приложении</h3>
+                    <p>В будущем будет добавлено приложение, скачиваемое по этим ссылкам</p>
+                    <div class="app-logo">
+                        <img src="{% static 'for_login/images/f/play-store.png' %}">
+                        <img src="{% static 'for_login/images/f/app-store.png' %}">
+                    </div>
+                </div>
+                <div class="footer-col2">
+                    <img src="{% static 'for_login/images/f/Logo.jpg' %}">
+                    <p>Мы стремимся сделать услуги доступными для всех</p>
+                </div>
+                <div class="footer-col3">
+                    <h3>Полезные ссылки</h3>
+                    <ul>
+                        <li><a href="{% url 'polojenie_in' %}">Положение</a></li>
+                        <li><a href="{% url 'partner_in' %}">Партнеры</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col4">
+                    <h3>Следуйте за нами</h3>
+                    <ul>
+                        <li><a href="https://vk.com/darmarka72">VK</a></li>
+                    </ul>
+                </div>
+            </div>
+            <hr>
+            <p class="copyright">&copy; 2022 TimeBank</p>
+        </div>
+    </div>
+    <!-----js for toggle menu------>
+    <script>
+        var MenuItems = document.getElementById("MenuItems");
+        MenuItems.style.maxHeight = "0px";
+        function menutoggle() {
+            if (MenuItems.style.maxHeight == "0px") {
+                MenuItems.style.maxHeight = "200px"
+            }
+            else {
+                MenuItems.style.maxHeight = "0px"
+            }
+        }
+    </script>
+
+
+</body>
+
+</html>

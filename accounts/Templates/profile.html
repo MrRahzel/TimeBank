@@ -171,6 +171,9 @@
                   <a href="{% url 'complaints' %}" class="gradient-button">
                     <h2>Жалобы</h2>
                   </a>
+                  <a href="{% url 'product_views' %}" class="gradient-button">
+                    <h2>Статистика</h2>
+                  </a>
                   {% endif %}
                   {% if request.user.is_superuser == False %}
                   <a href="{% url 'self_transactions' %}" class="gradient-button">
