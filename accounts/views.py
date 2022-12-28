@@ -175,8 +175,12 @@ def advertisement(request, id):
         return redirect('signup_before')
     else:
         object_list = Products.objects.get(id=id)
+        vr = datetime.datetime.now()
+        name = request.GET.get("prod")
+        view_c = Product_views.objects.create(user = request.user, product = name, time = vr)
+        view_c.save()
         tel = User.objects.select_related("Usvers").all()
-
+        
         return render(request,'advertisement.html', {"object_list":object_list, "tel":tel})
 
 def transact(request):
@@ -273,6 +277,11 @@ def index_in(request):
         except EmptyPage:
             posts = paginator.page(paginator.num_pages)
         return render(request, 'index_in.html', {"posts" : posts, "want": want, "page_c": page, 'query': query})
+
+def product_views(request):
+    views = Product_views.objects.all()
+    return render(request, 'product_views.html', {'views': views})
+
 
 def pj(request):
     if request.user.is_authenticated:
@@ -437,3 +446,4 @@ class SearchResultsView(ListView):
         else:
             object_list = Products.objects.filter(name = query, category = ct, is_saled = False)
         return object_list
+

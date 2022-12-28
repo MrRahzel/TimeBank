@@ -74,3 +74,9 @@ class Complaints(models.Model):
 
     def __str__(self):
       return self.title
+
+
+class Product_views(models.Model):
+  user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+  product = models.CharField(max_length=200)
+  time = models.DateTimeField(default=None, null=True, blank=True)

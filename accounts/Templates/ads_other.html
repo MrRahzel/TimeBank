@@ -148,7 +148,7 @@
                           <td>{% if el.phot != NULL %}<img src="{{ el.phot.url }}" width="100px">{% endif %}</td>
                     			<td>{{ el.user }}</td>
                     			<td>{{ el.user.email }}</td>
-                          <td class = "noBorder" style="background-color: #A9A9A9;"><a href="{% url 'advertisement' el.id %}" class="button6">Приобрести</a></td>
+                          <td class = "noBorder" style="background-color: #A9A9A9;"><a href="{% url 'advertisement' el.id %}?prod={{ el.name }}"  class="button6">Приобрести</a></td>
                     		</tr>
                     		{% endfor %}
                   		</table>

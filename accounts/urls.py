@@ -52,6 +52,7 @@ urlpatterns = [
     path('productreg', productreg, name='productreg'),
     path('profile/ads/', ads, name='ads'),
     path('profile/advertisement/<int:id>/', advertisement, name='advertisement'),
+    path('profile/views/', product_views, name='product_views'),
     #path('profile/edit/<int:id>/', edit, name='edit'),
     #path('profile/ads/edit', edit, name='edit'),
     path('profile/ads/edit/<int:id>/', edit, name='edit'),

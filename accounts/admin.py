@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Usvers, Products
+from .models import *
 
 # Register your models here.
 
@@ -12,3 +12,4 @@ class UsversAdmin(admin.ModelAdmin):
 
 admin.site.register(Usvers, UsversAdmin)
 admin.site.register(Products)
+admin.site.register(Product_views)
