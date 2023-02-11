@@ -81,6 +81,9 @@ function SelectTab(idx) {
         }
     }
   }
+  function message() {
+    alert('Для пользования платформой, рекомендуем создать как минимум 3 объявления');
+  }
 </script>
 </head>
 <body style="background-color: #666666;">
@@ -154,7 +157,7 @@ function SelectTab(idx) {
             </div>
             <br>
           <div class="container-login100-form-btn">
-            <button type="submit" class="login100-form-btn">
+            <button type="submit" class="login100-form-btn" onclick="message()">
               Зарегистрироваться
             </button>
           </div>

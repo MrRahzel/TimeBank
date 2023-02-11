@@ -4,6 +4,7 @@ from django.db import models
 # Create your views here.
 from django.contrib.auth.forms import UserCreationForm
 from django.views import generic
+from django.contrib import messages
 from .models import Usvers
 from .models import Products
 from .models import *
@@ -35,7 +36,8 @@ def signup(request):
             instance = Usvers(user = user, balance = 5, phone=phone)
             instance.save()
             login(request, user)
-            return redirect('productreg')
+            
+            return redirect('profile')
     else:
         form = RegisterUserForm()
     return render(request, 'signup.html', {'form': form})
@@ -56,7 +58,7 @@ def signupNKO(request):
             instance = Usvers(user = user, balance = 5, phone=phone, is_NKO = True, NKO_name=NKO)
             instance.save()
             login(request, user)
-            return redirect('productreg')
+            return redirect('profile')
     else:
         form = RegisterUserForm()
     return render(request, 'signupNKO.html', {'form': form})
@@ -89,7 +91,6 @@ def profile(request):
                 print(e)
                 msg = "Transaction Failure, Please check and try again"
                 return redirect('profile')
-
         data = Products.objects.all()
         databal = Usvers.objects.all().filter(is_superuser = False)
         #databal2 = databal.user_id > 1
