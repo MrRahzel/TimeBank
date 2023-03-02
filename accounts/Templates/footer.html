@@ -1,0 +1,40 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+    <head>
+        <link rel="stylesheet" href="{% static 'css/footerS.css' %}">
+    </head>
+    <div class="footer">
+        <div class="container">
+            <div class="rowf">
+                <div class="footer-col1">
+                    <h3>О приложении</h3>
+                    <p>В будущем будет добавлено приложение, скачиваемое по этим ссылкам</p>
+                    <div class="app-logo">
+                    <img src="{% static 'for_login/images/f/play-store.png' %}">
+                    <img src="{% static 'for_login/images/f/app-store.png' %}">
+                    </div>
+                </div>
+                <div class="footer-col2">
+                <img src="{% static 'for_login/images/f/Logo.jpg' %}">
+                    <p>Мы стремимся сделать услуги доступными для всех</p>
+                </div>
+                <div class="footer-col3">
+                    <h3>Полезные ссылки</h3>
+                    <ul>
+                        <li><a href="{% url 'polojenie' %}">Положение</a></li>
+                        <li><a href="{% url 'partner' %}">Партнеры</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col4">
+                    <h3>Следуйте за нами</h3>
+                    <ul>
+                        <li><a href="https://vk.com/darmarka72">VK</a></li>
+                    </ul>
+                </div>
+            </div>
+            <hr>
+            <p class="copyright">&copy; 2022-2023 TimeBank</p>
+        </div>
+    </div>
+</html>

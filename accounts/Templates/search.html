@@ -7,184 +7,130 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Поиск</title>
-    <link rel="stylesheet" href="{% static 'css/style2_0.css' %}">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
-        rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
     <script src="https://use.fontawesome.com/dff66f2cdf.js"></script>
-    <style>
-      a.blank {
-        font-weight: bold;
-        color: blue;
-      }
-      table {
-        border-spacing: 0 10px;
-        font-family: 'Open Sans', sans-serif;
-        font-weight: bold;
-        table-layout:fixed;
-        margin-right: 130px;
-      }
-      th {
-        padding: 10px 20px;
-        background: #0000CD;
-        color: #FFFFFF;
-        border-right: 2px solid;
-        font-size: 0.9em;
-      }
-      th:first-child {
-        text-align: left;
-      }
-      th:last-child {
-        border-right: none;
-      }
-      td {
-        vertical-align: top;
-        background: #87CEFA;
-        color: #000080;
-        padding: 10px;
-        font-size: 14px;
-        text-align: center;
-        border-top: 2px solid #56433D;
-        border-bottom: 2px solid #56433D;
-        border-right: 2px solid #56433D;
-      }
-      td:first-child {
-        vertical-align: top;
-        border-left: 2px solid #56433D;
-      }
-      td:nth-child(2){
-        vertical-align: top;
-        text-align: left;
-      }
-      .gradient-button {
-      text-decoration: none;
-      display: inline-block;
-      color: white;
-      padding: 20px 30px;
-      margin: 10px 20px;
-      border-radius: 10px;
-      font-family: 'Montserrat', sans-serif;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      background-image: linear-gradient(to right, #9EEFE1 0%, #4830F0 51%, #9EEFE1 100%);
-      background-size: 200% auto;
-      box-shadow: 0 0 20px rgba(0, 0, 0, .1);
-      transition: .5s;
-    }
-    .gradient-button:hover {
-      background-position: right center;
-    }
-    .button6 {
-      position: relative;
-      font-weight: bold;
-      color: white;
-      text-decoration: none;
-      text-shadow: 0 -1px 1px #cc5500;
-      user-select: none;
-      padding: .8em 2em;
-      outline: none;
-      border-radius: 1px;
-      background: linear-gradient(to left, rgba(0,0,0,.3), rgba(0,0,0,.0) 50%, rgba(0,0,0,.3)), linear-gradient(#000080, #0000FF, #000080);
-      background-size: 100% 100%, auto;
-      background-position: 50% 50%;
-      box-shadow: inset #4169E1 0 -1px 1px, inset 0 1px 1px #6495ED, #00008B 0 0 0 1px, #000 0 10px 15px -10px;
-      transition: 0.2s;
-    }
-    .button6:hover {
-      background-size: 140% 100%, auto;
-    }
-    .button6:active {
-      top: 1px;
-      color: #ffdead;
-      box-shadow: inset #4169E1 0 -1px 1px, inset 0 1px 1px #6495ED, #00008B 0 0 0 1px, 0 10px 10px -9px #000;
-    }
-    </style>
+    <link rel="stylesheet" href="{% static 'css/searchS.css' %}">
+
 </head>
 
 <body style="background: aliceblue;">
     <div class="header" style="background: aliceblue;">
-
-
         <div class="container">
-            <div class="navbar">
-                <div class="logo">
-                    <img src="{% static 'imagesM/Logo.jpg' %}" width="125px">
-                </div>
-                <nav>
-                    <ul id="MenuItems">
-                        <li><a href="{% url 'index_in' %}">Главная</a></li>
-                        <li><a href="{% url 'polojenie_in' %}" style="color: black;">О веб-сайте</a></li>
-                        <li><a href="{% url 'search' %}">Поиск</a></li>
-                        <li><a href="{% url 'ads' %}">Мои объявления</a></li>
-                        <li><a href="{% url 'profile' %}">Личный кабинет</a></li>
-                    </ul>
-                </nav>
-                <img src="{% static 'imagesM/cart.png' %}" width="30px" height="30px">
-                <img src="{% static 'imagesM/menu.png' %}" class="menu-icon" onclick="menutoggle()">
-            </div>
-            <div class="row">
-          <h1 class="pr">Поиск товаров и услуг</h1>
-            <br>
-              <table style="margin-top: 0px;">
-              <form action="{% url 'search_results' %}" method="get">
-                <tr>
-                  <td>
-                  <table>
-                    <tr><th>Фильтры</th></tr>
-                      <tr><td><label><input type="radio" name="display_type" value="other" style="width: 20px;">&nbspПоказать похожие</label></td></tr>
-                      <tr><td><label>Категория(товар/услуга): </label><input type="text" name="ct" list="catList"><datalist id="catList"><option value="Товар"><option value="Услуга"></datalist></td></tr>
-                      <tr><td><label>Цена: </label><input name="x" type="text" placeholder="от" size = "5"><input name="y" type="text" placeholder="до" size = "5"></td></tr>
-                  </table>
-                </td>
-                  <td style="vertical-align: center">
-                    <center>
-                <input name="q" type="text" placeholder="не менее двух символов">
-                <button type="submit">Поиск</button>
-                <br><br><img src="{% static "images/Search.jpg" %}" class="offer-img" style="width: 300px; height: 200px;">
-                    </center>
-                  </td>
-                </tr>
-              </form>
-              </table>
-            </div>
+          {% block header %}
+            {% include 'header.html' %}
+          {% endblock %}
         </div>
     </div>
-<br><br><br><br><br><br>
-    <!-----------       footer ------------>
-    <div class="footer">
-        <div class="container">
-            <div class="row">
-                <div class="footer-col1">
-                    <h3>О приложении</h3>
-                    <p>В будущем будет добавлено приложение, скачиваемое по этим ссылкам</p>
-                    <div class="app-logo">
-                        <img src="{% static 'for_login/images/f/play-store.png' %}">
-                        <img src="{% static 'for_login/images/f/app-store.png' %}">
-                    </div>
-                </div>
-                <div class="footer-col2">
-                    <img src="{% static 'for_login/images/f/Logo.jpg' %}">
-                    <p>Мы стремимся сделать услуги доступными для всех</p>
-                </div>
-                <div class="footer-col3">
-                    <h3>Полезные ссылки</h3>
-                    <ul>
-                        <li><a href="{% url 'polojenie_in' %}">Положение</a></li>
-                        <li><a href="{% url 'partner_in' %}">Партнеры</a></li>
-                    </ul>
-                </div>
-                <div class="footer-col4">
-                    <h3>Следуйте за нами</h3>
-                    <ul>
-                        <li><a href="https://vk.com/darmarka72">VK</a></li>
-                    </ul>
-                </div>
-            </div>
+
+<div class="row">
+  <form action="{% url 'search' %}" method="get">
+  <!-- BEGIN SEARCH RESULT -->
+  <div class="col-md-12">
+    <div class="grid search">
+      <div class="grid-body">
+        <div class="row">
+          <!-- BEGIN FILTERS -->
+          <div class="col-md-3">
+            <h2 class="grid-title"><i class="fa fa-filter"></i> Фильтры</h2>
             <hr>
-            <p class="copyright">&copy; 2022 TimeBank</p>
+            
+            <!-- BEGIN FILTER BY CATEGORY -->
+            <h4>Категория(товар/услуга):</h4>
+            <input type="text" name="ct" list="catList">
+            <datalist id="catList">
+              <option value="Товар">
+              <option value="Услуга">
+            </datalist>
+            <!-- END FILTER BY CATEGORY -->
+            
+            <div class="padding"></div>
+            <br>
+            <!-- Фильтр цены -->
+            <h4>Цена:</h4>
+            От
+            <div class="input-group date form_date" data-date="2014-06-14T05:25:07Z" data-date-format="dd-mm-yyyy" data-link-field="dtp_input1">
+              <input type="text" class="form-control" name="x">
+            </div>
+            <input type="hidden" id="dtp_input1" value="">
+            
+            До
+            <div class="input-group date form_date" data-date="2014-06-14T05:25:07Z" data-date-format="dd-mm-yyyy" data-link-field="dtp_input2">
+              <input type="text" class="form-control" name="y">
+            </div>
+            <input type="hidden" id="dtp_input2" value="">
+            <!-- Фильтр цены -->
+            
+            <div class="padding"></div>
+            
+          </div>
+          <!-- END FILTERS -->
+          <!-- BEGIN RESULT -->
+          <div class="col-md-9">
+            <h2><i class="fa fa-file-o"></i> Поиск товаров и услуг</h2>
+            <hr>
+            <!-- BEGIN SEARCH INPUT -->
+            <div class="input-group">
+              <input name="q" type="text" class="form-control" value="" placeholder="Введите не менее двух символов">
+              <span class="input-group-btn">
+                <button class="btn btn-primary" type="submit"><i class="fa fa-search"></i></button>
+              </span>
+            </div>
+            <!-- END SEARCH INPUT -->
+            <p>Показаны все результаты по запросу "{{ que }}"</p>
+            
+            <div class="padding"></div>
+            
+            <div class="row">
+              <!-- BEGIN ORDER RESULT -->
+              <div class="col-sm-6">
+                <div class="btn-group">
+
+                </div>
+              </div>
+              <!-- END ORDER RESULT -->
+            </div>
+            
+            <!-- BEGIN TABLE RESULT -->
+            {% block content %}
+            <div class="table-responsive" style="height: 700px; overflow: auto;">
+              <table class="table table-hover">
+                <tbody>
+                {% for el in object_list %}
+                <tr>
+                  <td class="image">{% if el.phot != NULL %}<img src="{{ el.phot.url }}" alt="">{% endif %}</td>
+                  <td class="product"><strong>{{ el.name }}</strong><br>{{ el.description|slice:":50" }}...</td>
+                  <td class="price text-right">
+                    <h6>
+                    {% if el.price == 1  %}{{ el.price }} доброчас{% endif %}
+                    {% if el.price == 2 or el.price == 3 or el.price == 4 %}{{ el.price }} доброчаса{% endif %}
+                    {% if el.price == 0 or el.price > 4 %}{{ el.price }} доброчасов{% endif %}
+                    </h6>
+                  </td>
+                  <td><a href="{% url 'advertisement' el.id %}?prod={{ el.name }}" class="btn btn-primary">Просмотр</a></td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+            </div>
+            {% endblock %}
+            <!-- END TABLE RESULT -->
+            
+          </div>
+          <!-- END RESULT -->
         </div>
+      </div>
     </div>
+  </div>
+  <!-- END SEARCH RESULT -->
+</form>
+</div>
+
+    
+
+    <!-----------       footer ------------>
+    {% block footer %}
+      {% include 'footer.html' %}
+    {% endblock %}
     <!-----js for toggle menu------>
     <script>
         var MenuItems = document.getElementById("MenuItems");
