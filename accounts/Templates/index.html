@@ -1,232 +1,143 @@
 {% load static %}
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Банк Времени</title>
-    <link rel="stylesheet" href="{% static 'css/style2_0.css' %}">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
-        rel="stylesheet">
-    <script src="https://use.fontawesome.com/dff66f2cdf.js"></script>
-    <script>
-    var tabCount = 2;
-    function SelectTab(idx) {
-      for (var i = 1; i <= tabCount; ++i)
-        {
-          var _tab = document.getElementById("tab"+i);
-          var _tabTitle = document.getElementById("tab-title"+i);
-          if (idx != i) {
-            _tab.setAttribute("class", "tab");
-            _tabTitle.setAttribute("class", "tab-title");
-            }
-          else {
-            _tab.setAttribute("class", "tab selected");
-            _tabTitle.setAttribute("class", "tab-title selected-li");
-            }
-        }
-      }
-    </script>
-    <style>
-    #tabs, #tabs-title { text-align: center;  margin: 0 auto 80px; position: relative; line-height: 60px; color: #555; clear: both;}
-    #tabs-title { height: 25px;}
-    .tab-title { cursor: pointer; margin-right: 10px; padding: 0 5px; list-style: none; }
-    .selected-li, #tabs-title li:hover  { border: 3px solid #ff523b;}
-    .tab { padding: 50px; display: none; text-align: justify;}
-    .selected { display: block; }
-    </style>
-</head>
-
-<body>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Банк времени</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" 
+    integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/style_B.css' %}">
+  </head>
+  <body>
     <div class="header">
-
-
-        <div class="container">
-            <div class="navbar">
-                <div class="logo">
-                    <img src="{% static 'imagesM/Logo.jpg' %}" width="125px">
-                </div>
-                <nav>
-                    <ul id="MenuItems">
-                        <li><a href="{% url 'index' %}">Главная</a></li>
-                        <li><a href="{% url 'polojenie' %}">О веб-сайте</a></li>
-                        <li><a href="{% url 'login' %}">Войти</a></li>
-                        <li><a href="{% url 'signup_before' %}">Зарегистрироваться</a></li>
-                    </ul>
-                </nav>
-                <img src="{% static 'imagesM/cart.png' %}" width="30px" height="30px">
-                <img src="{% static 'imagesM/menu.png' %}" class="menu-icon" onclick="menutoggle()">
+      <div class="container">
+        {% block header %}
+          {% include 'header.html' %}
+        {% endblock %}
+        <div class="row">
+            <div class="col2">
+                <h1>Первый региональный центр социальной взаимопомощи в формате банка времени.</h1>
+                <p>Добро пожаловать в электронную систему, которая позволяет вести учет времени, которое участник тратит на добрые дела.
+                  <br>Время, которое было использовано для доброго дела для других, можно будет потратить с пользой для себя!</p>
+                {% if not request.user.is_authenticated %}  
+                <a href="{% url 'signup_before' %}" class="batn">Исследуйте прямо сейчас! &#8594;</a>
+                {% endif %}
+                {% if request.user.is_authenticated %}  
+                <a href="{% url 'search' %}" class="batn">Исследуйте прямо сейчас! &#8594;</a>
+                {% endif %}
             </div>
-            <div class="row">
-                <div class="col2">
-                    <h1>Первый региональный центр социальной взаимопомощи в формате банка времени.</h1>
-                    <p>Добро пожаловать в электронную систему, которая позволяет вести учет времени, которое участник тратит на добрые дела.
-                      <br>Время, которое было использовано для доброго дела для других, можно будет потратить с пользой для себя!</p>
-                    <a href="{% url 'signup_before' %}" class="btn">Исследуйте прямо сейчас! &#8594;</a>
-                </div>
-                <div class="col2">
-                    <img src="{% static "imagesM/labor.jpg" %}" alt="">
-                </div>
+            <div class="col2">
+                <img src="{% static 'imagesM/labor.jpg' %}" alt="">
             </div>
         </div>
+      </div>
     </div>
-    <h2 class="title">Продукты</h2>
-    <h2>
+    <br>
+    <center>
+      <div>
+        {% block pagination2 %}
+          {% include 'pagination.html' %}
+        {% endblock %}
+      </div>
+   </center>
+   <br>
+    <div class="card text-center">
+      <div class="card-header">
         {% if want == 'sale' %}
-        <ul id="tabs-title" style="width: 400px;">
-            <a href='?search={{ query }}&page={{ page_c }}&want=sale'><li id="tab-title1" class="tab-title selected-li">Предлагаемые</li></a>
-            <a href='?search={{ query }}&page={{ page_c }}&want=buy'><li id="tab-title2" class="tab-title">Запрашиваемые</li></a>
+        <ul class="nav nav-pills card-header-pills">
+          <li class="nav-item" id="tab-title1">
+            <a class="nav-link active" href='?search={{ query }}&page={{ page_c }}&want=sale'>Предлагаемые</a>
+          </li>
+          <li class="nav-item" id="tab-title2">
+            <a class="nav-link" href='?search={{ query }}&page={{ page_c }}&want=buy'>Запрашиваемые</a>
+          </li>
         </ul>
         {% endif %}
         {% if want == 'buy' %}
-        <ul id="tabs-title" style="width: 400px;">
-            <a href='?search={{ query }}&page={{ page_c }}&want=sale'><li id="tab-title1" class="tab-title">Предлагаемые</li></a>
-            <a href='?search={{ query }}&page={{ page_c }}&want=buy'><li id="tab-title2" class="tab-title selected-li">Запрашиваемые</li></a>
+        <ul class="nav nav-pills card-header-pills">
+          <li class="nav-item" id="tab-title1">
+            <a class="nav-link" href='?search={{ query }}&page={{ page_c }}&want=sale'>Предлагаемые</a>
+          </li>
+          <li class="nav-item" id="tab-title2">
+            <a class="nav-link active" href='?search={{ query }}&page={{ page_c }}&want=buy'>Запрашиваемые</a>
+          </li>
         </ul>
         {% endif %}
-    </h2>
-    <br><br><br>
-  <center>
-    <form action="{% url 'index' %}" method="get" style="width: 500px; padding: 20px;">
-      <div class="wrap-input100 validate-input">
-        <input class="input100" type="text" name="search" class="form-input" autocapitalize="none" autofocus="" required="" placeholder="Поиск товара или услуги">
-        <span class="focus-input100"></span>
       </div>
-        <button type="submit" class="button6">
-          Найти
-        </button>
-    </form>
-<br><br><br><br><br>
-    <center>
-       <div>
-              {% block pagination2 %}
-                {% include 'pagination.html' %}
-
-              {% endblock %}
-       </div>
-    </center>
-<br>
-    <div id="tabs">
-     <div class="tab selected" id="tab1">
-       <div class="row">
-
+      <div class="row row-cols-1 row-cols-md-3 g-4">
         {% for t in posts %}
         {% if t.is_saled == False %}
         {% if t.phot != NULL %}
-          <div class="col4"><img src="{{ t.phot.url }}" style="width: 400px; height: 400px;">
-              <b><h3 style="text-align: center; text-decoration-line: underline overline #ff523b dashed;
-              border-bottom: 1px dashed #ff523b; border-top:1px dashed #ff523b; padding-bottom: 1px;">{{ t.name }}</h3></b>
-              <b><h4 style="text-align: center;">Цена: {{ t.price }} доброчасов</h4></b>
-  	      </div>
-          {% endif %}
-          {% endif %}
-          {% endfor %}
-
+        <div class="col">
+          <div class="card h-100">
+            <img src="{{ t.phot.url }}" style="max-width: 100%; object-fit: contain;">
+            <div class="card-body">
+              <h5 class="card-title">{{ t.name }}</h5>
+              <p class="card-text">Цена: {{ t.price }} доброчасов</p>
+            </div>
+            {% if request.user.is_authenticated %}
+            <a href="{% url 'advertisement' t.id %}?prod={{ t.name }}" class="btn btn-primary">Просмотр</a>
+            {% endif %}
+          </div>
+        </div>
+        {% endif %}
+        {% endif %}
+        {% endfor %}
       </div>
+      <div class="row row-cols-1 row-cols-md-3 g-4">
+        {% for t in posts %}
+        {% if t.is_saled == False %}
+        {% if t.phot != NULL %}
+        <div class="col">
+          <div class="card h-100">
+            <img src="{{ t.phot.url }}" style="max-width: 100%; object-fit: contain;">
+            <div class="card-body">
+              <h5 class="card-title">{{ t.name }}</h5>
+              <p class="card-text">Цена: {{ t.price }} доброчасов</p>
+            </div>
+            {% if request.user.is_authenticated %}
+            <a href="{% url 'advertisement' t.id %}?prod={{ t.name }}" class="btn btn-primary">Просмотр</a>
+            {% endif %}
+          </div>
+        </div>
+        {% endif %}
+        {% endif %}
+        {% endfor %}
       </div>
-
-    <div class="tab" id="tab2">
-      <div class="row">
-
-       {% for t in posts %}
-       {% if t.is_saled == False %}
-       {% if t.phot != NULL %}
-         <div class="col4"><img src="{{ t.phot.url }}" style="width: 400px; height: 400px;">
-             <b><h3 style="text-align: center; text-decoration-line: underline overline #ff523b dashed;
-             border-bottom: 1px dashed #ff523b; border-top:1px dashed #ff523b; padding-bottom: 1px;">{{ t.name }}</h3></b>
-             <b><h4 style="text-align: center;">Цена: {{ t.price }} доброчасов</h4></b>
-         </div>
-         {% endif %}
-         {% endif %}
-         {% endfor %}
-
-     </div>
-     </div>
-
-   </div>
-
-<center>
-   <div>
-          {% block pagination %}
-            {% include 'pagination.html' %}
-
-          {% endblock %}
-   </div>
-</center>
-
     </div>
-    <!------------offer -->
+    <br>
+      <div>
+        {% block pagination %}
+          {% include 'pagination.html' %}
+        {% endblock %}
+      </div>
     <div class="offer">
-        <div class="small-container">
-            <div class="row">
-                <div class="col2">
-                    <img src="images/exclusive.png" class="offer-img" alt="">
-                </div>
-                <div class="col2">
-                    <p>Доступно исключительно на веб-сайте Банк Времени</p>
-                    <h1>Услуги по запросу</h1>
-                    <small>Теперь вы можете заказать и позвонить по любому поводу в любом месте, и мы можем вам в этом
-                        помочь.</small><br>
-                    <a href="{% url 'signup_before' %}" class="btn">Купить сейчас &#8594;</a>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-----------------   Отзывы   ---------------->
-
-    <!-----------       footer ------------>
-    <div class="footer">
-        <div class="container">
-            <div class="row">
-                <div class="footer-col1">
-                    <h3>О приложении</h3>
-                    <p>В будущем будет добавлено приложение, скачиваемое по этим ссылкам</p>
-                    <div class="app-logo">
-                        <img src="{% static 'for_login/images/f/play-store.png' %}">
-                        <img src="{% static 'for_login/images/f/app-store.png' %}">
-                    </div>
-                </div>
-                <div class="footer-col2">
-                    <img src="{% static 'for_login/images/f/Logo.jpg' %}">
-                    <p>Мы стремимся сделать услуги доступными для всех</p>
-                </div>
-                <div class="footer-col3">
-                    <h3>Полезные ссылки</h3>
-                    <ul>
-                        <li><a href="{% url 'polojenie' %}">Положение</a></li>
-                        <li><a href="{% url 'partner' %}">Партнеры</a></li>
-                    </ul>
-                </div>
-                <div class="footer-col4">
-                    <h3>Следуйте за нами</h3>
-                    <ul>
-                        <li><a href="https://vk.com/darmarka72">VK</a></li>
-                    </ul>
-                </div>
-            </div>
-            <hr>
-            <p class="copyright">&copy; 2022 TimeBank</p>
-        </div>
-    </div>
-    <!-----js for toggle menu------>
-    <script>
-        var MenuItems = document.getElementById("MenuItems");
-        MenuItems.style.maxHeight = "0px";
-        function menutoggle() {
-            if (MenuItems.style.maxHeight == "0px") {
-                MenuItems.style.maxHeight = "200px"
-            }
-            else {
-                MenuItems.style.maxHeight = "0px"
-            }
-        }
-    </script>
-
-
-</body>
-
+      <div class="small-container">
+          <div class="rowf">
+              <div class="col2">
+                <img src="{% static 'images/exclusive.png' %}" class="offer-img" alt="">
+              </div>
+              <div class="col2">
+                  <p>Доступно исключительно на веб-сайте Банк Времени</p>
+                  <h1>Услуги по запросу</h1>
+                  <small>Теперь вы можете заказать и позвонить по любому поводу в любом месте, и мы можем вам в этом
+                      помочь.</small><br>
+                  {% if not request.user.is_authenticated %}    
+                  <a href="{% url 'signup_before' %}" class="batn">Купить сейчас &#8594;</a>
+                  {% endif %}
+                  {% if request.user.is_authenticated %}    
+                  <a href="{% url 'search' %}" class="batn">Купить сейчас &#8594;</a>
+                  {% endif %}
+              </div>
+          </div>
+      </div>
+  </div>
+  <!-----------footer ------------>
+  {% block footer %}
+    {% include 'footer.html' %}
+  {% endblock %}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" 
+    integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+  </body>
 </html>

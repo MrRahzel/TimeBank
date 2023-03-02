@@ -190,7 +190,8 @@ def transact(request):
     else:
         tr = Transacts.objects.all()
         selftr = Transacts.objects.filter(user11 = request.user.username)
-        context = {'transactions': tr, 'self_transactions': selftr}
+        count = Transacts.objects.filter(user11 = request.user.username).count()
+        context = {'transactions': tr, 'self_transactions': selftr, 'count':count}
         return render(request, 'transactions.html', context)
 
 def cancel(request, id):
@@ -243,68 +244,24 @@ def index(request):
         posts = paginator.page(1)
     except EmptyPage:
         posts = paginator.page(paginator.num_pages)
-    if request.user.is_authenticated:
-        return HttpResponseRedirect('/profile/index')
     return render(request, 'index.html', {"posts" : posts, "want": want, "page_c": page, 'query': query})
 
 
-
-def index_in(request):
-    if not request.user.is_authenticated:
-        return redirect('signup_before')
-    else:
-        want = request.GET.get("want", 'sale')
-        query = request.GET.get('search', '')
-        z = len(query) - 3
-        if query == '':
-            if want == 'sale':
-                posts = Products.objects.filter(wanttobuy="Продать").order_by('-id')
-            elif want == 'buy':
-                posts = Products.objects.filter(wanttobuy="Купить").order_by('-id')
-        else:
-            if want == 'sale':
-                posts = Products.objects.filter(wanttobuy="Продать", name__iregex = query[z]).order_by('-id')
-            elif want == 'buy':
-                posts = Products.objects.filter(wanttobuy="Купить", name__iregex = query[z]).order_by('-id')
-        if 'page' in request.GET:
-            page = request.GET['page']
-        else:
-            page = 1
-        paginator = Paginator(posts, 15)
-        try:
-            posts = paginator.page(page)
-        except PageNotAnInteger:
-            posts = paginator.page(1)
-        except EmptyPage:
-            posts = paginator.page(paginator.num_pages)
-        return render(request, 'index_in.html', {"posts" : posts, "want": want, "page_c": page, 'query': query})
-
 def product_views(request):
     views = Product_views.objects.all()
-    return render(request, 'product_views.html', {'views': views})
+    count = Product_views.objects.all().count()
+    return render(request, 'product_views.html', {'views': views, 'count':count})
 
 
 def pj(request):
-    if request.user.is_authenticated:
-        return HttpResponseRedirect('/profile/polojenie')
+    
     return render(request, 'polojenie.html')
 
-def pj_in(request):
-    if not request.user.is_authenticated:
-        return redirect('signup_before')
-    else:
-        return render(request, 'polojenie_in.html')
 
 def pt(request):
-    if request.user.is_authenticated:
-        return HttpResponseRedirect('/profile/partner')
+    
     return render(request, 'partner.html')
 
-def pt_in(request):
-    if not request.user.is_authenticated:
-        return redirect('signup_before')
-    else:
-        return render(request, 'partner_in.html')
 
 def product(request):
     if not request.user.is_authenticated:
@@ -349,7 +306,8 @@ def addcomplaint(request):
 
 def complaints(request):
     cmpl = Complaints.objects.all()
-    return render(request,'complaints.html',{"cmpl" : cmpl})
+    count = Complaints.objects.all().count()
+    return render(request,'complaints.html',{"cmpl" : cmpl, 'count':count})
 
 def productreg(request):
     error = ''
@@ -375,8 +333,12 @@ def ads(request):
         return redirect('signup_before')
     else:
         tovars = Products.objects.filter(user=request.user)
+        count1 = Products.objects.filter(user=request.user, category="Товар", wanttobuy="Продать").count()
+        count2 = Products.objects.filter(user=request.user, category="Услуга", wanttobuy="Продать").count()
+        count3 = Products.objects.filter(user=request.user, wanttobuy="Купить").count()
+        count4 = Products.objects.filter(user=request.user, category="Соц_задача").count()
         us = Usvers.objects.get(user=request.user)
-        return render(request,'ads.html',{"tovars" : tovars, "is_NKO":us.is_NKO})
+        return render(request,'ads.html',{"tovars" : tovars, "is_NKO":us.is_NKO, "count1":count1, "count2":count2, "count3":count3, "count4":count4})
 
 def edit(request, id):
     if not request.user.is_authenticated:
@@ -423,18 +385,39 @@ def search(request):
         return redirect('signup_before')
     else:
         tovars = Products.objects.filter(user=request.user)
+        query = request.GET.get('q', '')
+        if query == "":
+            object_list = ""
+        else:
+            z = len(query) - 3   
+            ct = request.GET.get('ct')
+            #display_type = request.GET.get("display_type", None)
+            display_type = 'other'
+            if (display_type == 'other'):
+                x = request.GET.get('x')
+                y = request.GET.get('y')
+                if ((x == '') and (y == '')):
+                    x = 0
+                    y = 0
+                    object_list = Products.objects.filter(name__iregex = query[z], category = ct, is_saled = False)
+                else:
+                    object_list = Products.objects.filter(name__iregex = query[z], price__range = (x, y), category = ct, is_saled = False)
+            else:
+                object_list = Products.objects.filter(name = query, category = ct, is_saled = False)
 
-        return render(request, 'search.html',{"tovars" : tovars})
+        return render(request, 'search.html',{"tovars" : tovars, 'object_list' : object_list, 'que' : query})
 
-
+"""
 class SearchResultsView(ListView):
     model = Products
-    template_name = 'ads_other.html'
+    template_name = 'search.html'
     def get_queryset(self): # новый
-        query = self.request.GET.get('q')
-        z = len(query) - 3
+        query = self.request.GET.get('q', '')
+        if query != "":
+            z = len(query) - 3
         ct = self.request.GET.get('ct')
         display_type = self.request.GET.get("display_type", None)
+        #display_type = 'other'
         if (display_type == 'other'):
             x = self.request.GET.get('x')
             y = self.request.GET.get('y')
@@ -447,4 +430,5 @@ class SearchResultsView(ListView):
         else:
             object_list = Products.objects.filter(name = query, category = ct, is_saled = False)
         return object_list
+"""        
 

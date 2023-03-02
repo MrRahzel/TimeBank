@@ -7,34 +7,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Партнёры</title>
-    <link rel="stylesheet" href="{% static 'css/style2.css' %}">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
-        rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" 
+    integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/style_for_pj&prtn.css' %}">
     <script src="https://use.fontawesome.com/dff66f2cdf.js"></script>
 </head>
 
 <body style="background-color: aliceblue;">
     <div class="header" style="background: aliceblue;">
-
-
         <div class="container">
-            <div class="navbar">
-                <div class="logo">
-                    <img src="{% static 'imagesM/Logo.jpg' %}" width="125px">
-                </div>
-                <nav>
-                    <ul id="MenuItems">
-                        <li><a href="{% url 'index' %}" style="color: black;">Главная</a></li>
-                        <li><a href="{% url 'polojenie' %}" style="color: black;">О веб-сайте</a></li>
-                        <li><a href="{% url 'login' %}" style="color: black;">Войти</a></li>
-                        <li><a href="{% url 'signup_before' %}" style="color: black;">Зарегистрироваться</a></li>
-                    </ul>
-                </nav>
-                <img src="{% static 'imagesM/cart.png' %}" width="30px" height="30px">
-                <img src="{% static 'imagesM/menu.png' %}" class="menu-icon" onclick="menutoggle()">
-            </div>
+            {% block header %}
+                {% include 'header.html' %}
+            {% endblock %}
             <!-- Brands -->
             <div class="brands">
                 <div class="small-container">
@@ -52,39 +36,9 @@
     </div>
     <br><br><br><br><br><br><br><br><br><br>
     <!-----------       footer ------------>
-    <div class="footer">
-        <div class="container">
-            <div class="row">
-                <div class="footer-col1">
-                    <h3>О приложении</h3>
-                    <p>В будущем будет добавлено приложение, скачиваемое по этим ссылкам</p>
-                    <div class="app-logo">
-                        <img src="{% static 'for_login/images/f/play-store.png' %}">
-                        <img src="{% static 'for_login/images/f/app-store.png' %}">
-                    </div>
-                </div>
-                <div class="footer-col2">
-                    <img src="{% static 'for_login/images/f/Logo.jpg' %}">
-                    <p>Мы стремимся сделать услуги доступными для всех</p>
-                </div>
-                <div class="footer-col3">
-                    <h3>Полезные ссылки</h3>
-                    <ul>
-                        <li><a href="{% url 'polojenie' %}">Положение</a></li>
-                        <li><a href="{% url 'partner' %}">Партнеры</a></li>
-                    </ul>
-                </div>
-                <div class="footer-col4">
-                    <h3>Следуйте за нами</h3>
-                    <ul>
-                        <li><a href="https://vk.com/darmarka72">VK</a></li>
-                    </ul>
-                </div>
-            </div>
-            <hr>
-            <p class="copyright">&copy; 2022 TimeBank</p>
-        </div>
-    </div>
+    {% block footer %}
+        {% include 'footer.html' %}
+    {% endblock %}
     <!-----js for toggle menu------>
     <script>
         var MenuItems = document.getElementById("MenuItems");
@@ -99,7 +53,8 @@
         }
     </script>
 
-
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" 
+integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
 </body>
 
 </html>

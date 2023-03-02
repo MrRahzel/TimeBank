@@ -1,0 +1,82 @@
+
+/* Header */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+}
+
+
+.container {
+    max-width: 1300px;
+    margin: auto;
+    padding-left: 25px;
+    padding-right: 25px;
+}
+
+.rowf {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.col2 {
+    flex-basis: 50%;
+    min-width: 300px;
+}
+
+.col2 img {
+    max-width: 100%;
+    padding: 50px 0;
+}
+
+.col2 h1 {
+    font-size: 50px;
+    line-height: 60px;
+    margin: 25px 0;
+
+}
+
+
+.header {
+    background: #30A3FF;
+}
+
+.header .row {
+    margin-top: 70px;
+}
+/* Header */
+
+/* Cards */
+.size {
+    width: 400px; 
+    height: 300px;
+}
+/* Cards */
+
+/* Offer */
+.offer {
+    background: radial-gradient(#fff, #ffd6d6);
+    margin-top: 80px;
+    padding: 30px 0;
+}
+.small-container {
+    max-width: 1080px;
+    margin: auto;
+    padding-left: 25px;
+    padding-right: 25px;
+}
+.col2 .offer-img {
+    padding: 50px;
+}
+
+.small {
+    color: #555;
+}
+/* Offer */
+

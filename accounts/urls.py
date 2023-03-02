@@ -16,11 +16,16 @@ urlpatterns = [
     path('signup_start', sign_b, name='signup_before'),
     path('signupNKO', signupNKO, name='signupNKO'),
     path('', index, name='index'),
+<<<<<<< HEAD
+    path('polojenie/', pj, name='polojenie'),
+    path('partner/', pt, name='partner'),
+=======
     path('profile/index/', index_in, name='index_in'),
     path('polojenie/', pj, name='polojenie'),
     path('profile/polojenie/', pj_in, name='polojenie_in'),
     path('partner/', pt, name='partner'),
     path('profile/partner/', pt_in, name='partner_in'),
+>>>>>>> 5db913fca4e7db375b6e4b393d428f1e2d74a63e
     re_path(r'^profile/$', profile, name='profile'),
     path('profile/tokensdonate', totaldonation, name='totaldonation'),
     path('profile/tokensdonate2/<int:id>/', totaldonation2, name='totaldonation2'),
@@ -39,5 +44,9 @@ urlpatterns = [
     path('profile/ads/delete/<int:id>/', delete),
     path('profile/ads/changeS/<int:id>/', changeS),
     path('profile/search/', search, name='search'),
+<<<<<<< HEAD
+
+=======
     path('profile/search_results/', SearchResultsView.as_view(), name='search_results'),
+>>>>>>> 5db913fca4e7db375b6e4b393d428f1e2d74a63e
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

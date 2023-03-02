@@ -1,0 +1,91 @@
+a.blank {
+  font-weight: bold;
+  color: blue;
+}
+table {
+  border-spacing: 0 10px;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: bold;
+  table-layout:fixed;
+  margin-right: 130px;
+}
+th {
+  padding: 10px 20px;
+  background: #0000CD;
+  color: #FFFFFF;
+  border-right: 2px solid;
+  font-size: 0.9em;
+}
+th:first-child {
+  text-align: left;
+}
+th:last-child {
+  border-right: none;
+}
+td {
+  vertical-align: top;
+  background: #87CEFA;
+  color: #000080;
+  padding: 10px;
+  font-size: 14px;
+  text-align: center;
+  border-top: 2px solid #56433D;
+  border-bottom: 2px solid aliceblue;
+  border-right: 2px solid #56433D;
+}
+td:first-child {
+  vertical-align: top;
+  border-left: 2px solid #56433D;
+}
+td:nth-child(2){
+  vertical-align: top;
+  text-align: left;
+}
+.gradient-button {
+text-decoration: none;
+display: inline-block;
+color: white;
+padding: 20px 30px;
+margin: 10px 20px;
+border-radius: 10px;
+font-family: 'Montserrat', sans-serif;
+text-transform: uppercase;
+letter-spacing: 2px;
+background-image: linear-gradient(to right, #9EEFE1 0%, #4830F0 51%, #9EEFE1 100%);
+background-size: 200% auto;
+box-shadow: 0 0 20px rgba(0, 0, 0, .1);
+transition: .5s;
+}
+.gradient-button:hover {
+background-position: right center;
+}
+.button6 {
+position: relative;
+font-weight: bold;
+color: white;
+text-decoration: none;
+text-shadow: 0 -1px 1px #cc5500;
+user-select: none;
+padding: .8em 2em;
+outline: none;
+border-radius: 1px;
+background: linear-gradient(to left, rgba(0,0,0,.3), rgba(0,0,0,.0) 50%, rgba(0,0,0,.3)), linear-gradient(#000080, #0000FF, #000080);
+background-size: 100% 100%, auto;
+background-position: 50% 50%;
+box-shadow: inset #4169E1 0 -1px 1px, inset 0 1px 1px #6495ED, #00008B 0 0 0 1px, #000 0 10px 15px -10px;
+transition: 0.2s;
+}
+.button6:hover {
+background-size: 140% 100%, auto;
+}
+.button6:active {
+top: 1px;
+color: #ffdead;
+box-shadow: inset #4169E1 0 -1px 1px, inset 0 1px 1px #6495ED, #00008B 0 0 0 1px, 0 10px 10px -9px #000;
+}
+
+.buttons {
+    border: 0px; 
+    border-left: 0px !important;
+    background: aliceblue;
+}
