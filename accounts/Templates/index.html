@@ -85,26 +85,7 @@
         {% endif %}
         {% endfor %}
       </div>
-      <div class="row row-cols-1 row-cols-md-3 g-4">
-        {% for t in posts %}
-        {% if t.is_saled == False %}
-        {% if t.phot != NULL %}
-        <div class="col">
-          <div class="card h-100">
-            <img src="{{ t.phot.url }}" style="max-width: 100%; object-fit: contain;">
-            <div class="card-body">
-              <h5 class="card-title">{{ t.name }}</h5>
-              <p class="card-text">Цена: {{ t.price }} доброчасов</p>
-            </div>
-            {% if request.user.is_authenticated %}
-            <a href="{% url 'advertisement' t.id %}?prod={{ t.name }}" class="btn btn-primary">Просмотр</a>
-            {% endif %}
-          </div>
-        </div>
-        {% endif %}
-        {% endif %}
-        {% endfor %}
-      </div>
+
     </div>
     <br>
       <div>
