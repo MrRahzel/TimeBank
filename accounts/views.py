@@ -10,7 +10,12 @@ from .models import Products
 from .models import *
 from .forms import RegisterUserForm
 from .forms import *
+from .apps import *
+from .signal_for_products import update_product
 from django.db.models import Sum
+
+from .apps import model_st
+import random
 
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.contrib.auth import login, authenticate
@@ -181,8 +186,45 @@ def advertisement(request, id):
         view_c = Product_views.objects.create(user = request.user, product = name, time = vr)
         view_c.save()
         tel = User.objects.select_related("Usvers").all()
+
+        #Рекомендации
+        it = {}
+        for p in range(511):
+            instance = Products.objects.values_list('id', f'v{p}')
+            object_list2 = Products.objects.values_list('id', f'v{p}').get(id=id)
+            shet = Products.objects.all().count()
+
         
-        return render(request,'advertisement.html', {"object_list":object_list, "tel":tel})
+            for i in range(shet-1):
+                iter = instance[i]
+                if (abs(object_list2[1] - iter[1]) <= 0.011500):
+                    #it.append(abs(object_list2 - iter))
+                    it[iter[0]] = (abs(object_list2[1] - iter[1]))
+        
+        a = random.choice(list(it.items()))
+        b = random.choice(list(it.items()))
+        c = random.choice(list(it.items()))
+        d = random.choice(list(it.items()))
+        e = random.choice(list(it.items()))
+
+        rec1 = Products.objects.get(id = a[0])
+        rec2 = Products.objects.get(id = b[0]) 
+        rec3 = Products.objects.get(id = c[0]) 
+        rec4 = Products.objects.get(id = d[0]) 
+        rec5 = Products.objects.get(id = e[0]) 
+
+        context = {
+            "object_list":object_list, 
+            "tel":tel,
+            "rec1":rec1,
+            "rec2":rec2,
+            "rec3":rec3,
+            "rec4":rec4,
+            "rec5":rec5
+        }
+
+                  
+    return render(request,'advertisement.html', context)
 
 def transact(request):
     if not request.user.is_authenticated:
@@ -275,6 +317,7 @@ def product(request):
             if form.is_valid():
                 saving = form.save(commit=False)
                 saving.user = request.user
+                update_product(Products, saving)
                 saving.save()
                 #if (pr.description != form.cleaned_data["description"]):
                 #    print('неккоректно')
@@ -285,6 +328,7 @@ def product(request):
             form = addProduct()
         context = {'form': form, 'error' : error, "is_NKO":us.is_NKO}
         return render(request, 'products.html', context)
+
 
 def addcomplaint(request):
     if not request.user.is_authenticated:
@@ -303,6 +347,7 @@ def addcomplaint(request):
         form = addComplaint()
         context = {'form': form, 'error' : error}
         return render(request, 'add_complaint.html', context)
+
 
 def complaints(request):
     cmpl = Complaints.objects.all()
@@ -340,28 +385,32 @@ def ads(request):
         us = Usvers.objects.get(user=request.user)
         return render(request,'ads.html',{"tovars" : tovars, "is_NKO":us.is_NKO, "count1":count1, "count2":count2, "count3":count3, "count4":count4})
 
+
 def edit(request, id):
     if not request.user.is_authenticated:
         return redirect('signup_before')
     else:
-        prod = Products.objects.get(user=request.user, id=id)
+        prod = Products.objects.get(id=id)
 
         if request.method == "POST":
             prod.name = request.POST.get("name")
-            prod.description = request.POST.get("description")
             prod.price = request.POST.get("price")
+            prod.description = request.POST.get("description")
+            update_product(Products, prod)
             prod.save()
             return redirect('ads')
         else:
             print('Некорректная форма')
 
-        return render(request, "edit.html", {"prod": prod})
+        return render(request, "edit.html", {"prod": prod})     
+
 
 def delete(request, id):
     prod = Products.objects.get(id=id)
     prod.delete()
 
     return redirect('ads')
+
 
 def changeS(request, id):
     if not request.user.is_authenticated:

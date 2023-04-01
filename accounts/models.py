@@ -3,6 +3,26 @@ from django.conf import settings
 from django.contrib.auth.forms import UserCreationForm
 from django.core.validators import MinLengthValidator
 from django.core.exceptions import ValidationError
+from django.http import HttpResponseRedirect
+from django.shortcuts import redirect
+
+from .apps import model_st
+
+from .abstract_model_vector import Vector
+
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+
+#Для векторов
+import math
+import re
+import seaborn as sns
+import numpy as np
+from scipy import spatial
+from matplotlib import pyplot as plt
+#import razdel
+import pickle
+
 
 # Create your models here.
 from django.contrib.auth.models import User
@@ -28,7 +48,7 @@ class Usvers(models.Model):
      #   return "{} {}".format(self.user, self.balance)
 
 
-class Products(models.Model):
+class Products(Vector):
   def file_size(value): # add this to some file where you can import it from
     limit = 2 * 1024 * 1024
     if value.size > limit:
@@ -56,7 +76,16 @@ class Products(models.Model):
 
   def __str__(self):
     return self.name
-
+  
+  """
+  def array_dist(arr1,arr2):
+    if len(arr1)!=len(arr2):
+        raise TypeError('Length Difference')
+    summ=0.0
+    for i in range(len(arr1)):
+        summ+= (arr1[i]-arr2[i])*(arr1[i]-arr2[i])
+    return math.sqrt(summ)
+  """
 
 class Transacts(models.Model):
   user11 = models.CharField(max_length=200)
@@ -80,3 +109,17 @@ class Product_views(models.Model):
   user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
   product = models.CharField(max_length=200)
   time = models.DateTimeField(default=None, null=True, blank=True)
+
+class TransactionDetail(models.Model):
+    product = models.ForeignKey(Products, on_delete=models.CASCADE)
+
+
+
+#Обработчик сигнала(все будущие модели лучше писать над ним)
+"""
+@receiver(post_save, sender=Products, dispatch_uid="update_products_count")
+def update_product(sender, instance, **kwargs):
+  #count = Products.objects.all().count()
+  instance.v10 = (model_st.encode(instance.description))[10]
+  instance.save()
+"""  
