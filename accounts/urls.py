@@ -36,6 +36,7 @@ urlpatterns = [
     path('productreg', productreg, name='productreg'),
     path('profile/ads/', ads, name='ads'),
     path('profile/advertisement/<int:id>/', advertisement, name='advertisement'),
+    path('profile/recomendations/<int:id>/', recomendations, name='recomendations'),
     path('profile/views/', product_views, name='product_views'),
     path('profile/ads/edit/<int:id>/', edit, name='edit'),
     path('profile/edit/<int:id>/', edit, name='edit_adm'),

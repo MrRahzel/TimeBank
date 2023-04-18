@@ -1,0 +1,113 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Объявление</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" 
+    integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/style_B.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style_for_contacts.css' %}">
+
+</head>
+
+<body style="background: aliceblue;">
+    <div class="header" style="background: aliceblue;">
+        <div class="container">
+        {% block header %}
+          {% include 'header.html' %}
+        {% endblock %}
+            <br><br><br>
+            <div class="card mb-3">
+              <img src="{{ object_list.phot.url }}" style="max-width: 100%; max-height: 600px;" class="card-img-top" alt="...">
+              <center>
+              <div class="card-body">
+                <h5 class="card-title">{{ object_list.name }}</h5>
+                <p class="card-text">{{ object_list.description }}</p>
+                <p class="card-text"><small class="text-muted">Цена: {{ object_list.price }} доброчасов</small></p>
+              </div>
+            </center>
+            </div>
+            <br><br>
+            <center>
+                <div class="col2">
+                    <table style="width: 400px;">
+                      <th colspan="2" style="text-align: center;">Контакты</th>
+                      <tr>
+                       <td style="border: 0px; background: #cadff4; color: #00008B">Имя пользователя</td>
+                       <td style="border: 0px; background: #ECE9E0; color: #656665; word-wrap: break-word;">{{object_list.user}}</td>
+                     </tr>
+                     <tr>
+                       <td style="border: 0px; background: #cadff4; color: #00008B">Электронная почта</td>
+                       <td style="border: 0px; background: #ECE9E0; color: #656665; word-wrap: break-word;">{{object_list.user.email}}</td>
+                     </tr>
+                     <tr>
+                       <td style="border: 0px; background: #cadff4; color: #00008B">Телефон</td>
+                       <td style="border: 0px; background: #ECE9E0; color: #656665; word-wrap: break-word;">{{object_list.user.usvers.phone}}</td>
+                     </tr>
+                   </table>
+                   <br><br>
+                     <a href="{% url 'totaldonation2' object_list.id %}" class="button6" style="margin-left: -105px;">Приобрести</a>
+                </div>
+            </center>
+            <br><br><br>
+            <center>
+              <table style="border-collapse: separate;">
+                <th colspan=3>Рекомендовано для вас:</th>
+                <tr>
+                  <td style="border-left: 0;">{{ rec1.name }}</td>
+                  <td style="vertical-align: middle;"><a href="{% url 'advertisement' rec1.id %}?prod={{ rec1.name }}" class="button6">Перейти</a></td>
+                  <td>{% if rec1.phot != NULL %}<img src="{{ rec1.phot.url }}" width="70px">{% endif %}</td>
+                </tr>
+                <tr>
+                  <td style="border-left: 0;">{{ rec2.name }}</td>
+                  <td style="vertical-align: middle;"><a href="{% url 'advertisement' rec2.id %}?prod={{ rec2.name }}" class="button6">Перейти</a></td>
+                  <td>{% if rec2.phot != NULL %}<img src="{{ rec2.phot.url }}" width="70px">{% endif %}</td>
+                </tr>
+                <tr>
+                  <td style="border-left: 0;">{{ rec3.name }}</td>
+                  <td style="vertical-align: middle;"><a href="{% url 'advertisement' rec3.id %}?prod={{ rec3.name }}" class="button6">Перейти</a></td>
+                  <td>{% if rec3.phot != NULL %}<img src="{{ rec3.phot.url }}" width="70px">{% endif %}</td>
+                </tr>
+                <tr>
+                  <td style="border-left: 0;">{{ rec4.name }}</td>
+                  <td style="vertical-align: middle;"><a href="{% url 'advertisement' rec4.id %}?prod={{ rec4.name }}" class="button6">Перейти</a></td>
+                  <td>{% if rec4.phot != NULL %}<img src="{{ rec4.phot.url }}" width="70px">{% endif %}</td>
+                </tr>
+                <tr>
+                  <td style="border-left: 0;">{{ rec5.name }}</td>
+                  <td style="vertical-align: middle;"><a href="{% url 'advertisement' rec5.id %}?prod={{ rec5.name }}" class="button6">Перейти</a></td>
+                  <td>{% if rec5.phot != NULL %}<img src="{{ rec5.phot.url }}" width="70px">{% endif %}</td>
+                </tr>
+              </table>
+            </center>
+        </div>
+    </div>
+<br><br><br><br><br><br>
+    <!-----------       footer ------------>
+    {% block footer %}
+      {% include 'footer.html' %}
+    {% endblock %}
+    <!-----js for toggle menu------>
+    <script>
+        var MenuItems = document.getElementById("MenuItems");
+        MenuItems.style.maxHeight = "0px";
+        function menutoggle() {
+            if (MenuItems.style.maxHeight == "0px") {
+                MenuItems.style.maxHeight = "200px"
+            }
+            else {
+                MenuItems.style.maxHeight = "0px"
+            }
+        }
+    </script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" 
+integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+</body>
+
+</html>
+
+
