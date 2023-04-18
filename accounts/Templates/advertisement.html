@@ -11,6 +11,19 @@
     integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <link rel="stylesheet" href="{% static 'css/style_B.css' %}">
     <link rel="stylesheet" href="{% static 'css/style_for_contacts.css' %}">
+    <script>
+      var xhr = new XMLHttpRequest();
+      var id = location.pathname.split('/')[4]
+      var url = '/accounts/profile/recomendations/' + id + '/';
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState == XMLHttpRequest.DONE) {
+            document.body.innerHTML = xhr.responseText;
+        }
+      }
+      xhr.open('GET', url, true);
+      xhr.send(); 
+
+    </script>
 </head>
 
 <body style="background: aliceblue;">
@@ -54,35 +67,15 @@
             </center>
             <br><br><br>
             <center>
-            <table style="border-collapse: separate;">
-              <th colspan=3>Рекомендовано для вас:</th>
-              <tr>
-                <td style="border-left: 0;">{{ rec1.name }}</td>
-                <td style="vertical-align: middle;"><a href="{% url 'advertisement' rec1.id %}?prod={{ rec1.name }}" class="button6">Перейти</a></td>
-                <td>{% if rec1.phot != NULL %}<img src="{{ rec1.phot.url }}" width="70px">{% endif %}</td>
-              </tr>
-              <tr>
-                <td style="border-left: 0;">{{ rec2.name }}</td>
-                <td style="vertical-align: middle;"><a href="{% url 'advertisement' rec2.id %}?prod={{ rec2.name }}" class="button6">Перейти</a></td>
-                <td>{% if rec2.phot != NULL %}<img src="{{ rec2.phot.url }}" width="70px">{% endif %}</td>
-              </tr>
-              <tr>
-                <td style="border-left: 0;">{{ rec3.name }}</td>
-                <td style="vertical-align: middle;"><a href="{% url 'advertisement' rec3.id %}?prod={{ rec3.name }}" class="button6">Перейти</a></td>
-                <td>{% if rec3.phot != NULL %}<img src="{{ rec3.phot.url }}" width="70px">{% endif %}</td>
-              </tr>
-              <tr>
-                <td style="border-left: 0;">{{ rec4.name }}</td>
-                <td style="vertical-align: middle;"><a href="{% url 'advertisement' rec4.id %}?prod={{ rec4.name }}" class="button6">Перейти</a></td>
-                <td>{% if rec4.phot != NULL %}<img src="{{ rec4.phot.url }}" width="70px">{% endif %}</td>
-              </tr>
-              <tr>
-                <td style="border-left: 0;">{{ rec5.name }}</td>
-                <td style="vertical-align: middle;"><a href="{% url 'advertisement' rec5.id %}?prod={{ rec5.name }}" class="button6">Перейти</a></td>
-                <td>{% if rec5.phot != NULL %}<img src="{{ rec5.phot.url }}" width="70px">{% endif %}</td>
-              </tr>
-            </table>
-          </center>
+              <table style="border-collapse: separate;">
+                <th colspan=3>Рекомендовано для вас:</th>
+                <tr>
+                  <td style="border-left: 0;">
+                  <img src="{% static 'images/loading-loading-forever.gif' %}" alt="" style="width: 50px; height: 50px;">
+                  </td>
+                </tr>
+              </table>
+            </center>
         </div>
     </div>
 <br><br><br><br><br><br>

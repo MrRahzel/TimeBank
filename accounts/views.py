@@ -187,6 +187,23 @@ def advertisement(request, id):
         view_c.save()
         tel = User.objects.select_related("Usvers").all()
 
+
+        context = {
+            "object_list":object_list, 
+            "tel":tel,
+        }
+       
+           
+    return render(request,'advertisement.html', context)
+
+def recomendations(request, id):
+    if not request.user.is_authenticated:
+        return redirect('signup_before')
+    else:
+        object_list = Products.objects.get(id=id)
+        tel = User.objects.select_related("Usvers").all()
+
+    
         #Рекомендации
         it = {}
         for p in range(511):
@@ -215,6 +232,7 @@ def advertisement(request, id):
 
         context = {
             "object_list":object_list, 
+            "object_list2":object_list2, 
             "tel":tel,
             "rec1":rec1,
             "rec2":rec2,
@@ -222,9 +240,10 @@ def advertisement(request, id):
             "rec4":rec4,
             "rec5":rec5
         }
+       
+           
+    return render(request,'recomendations.html', context)
 
-                  
-    return render(request,'advertisement.html', context)
 
 def transact(request):
     if not request.user.is_authenticated:
