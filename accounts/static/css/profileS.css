@@ -2,27 +2,27 @@ a.blank {
   font-weight: bold;
   color: blue;
 }
-table {
+.user_table {
   border-spacing: 0 10px;
   font-family: 'Open Sans', sans-serif;
   font-weight: bold;
   table-layout:fixed;
   margin-right: 130px;
 }
-th {
+.user_th {
   padding: 10px 20px;
   background: #0000CD;
   color: #FFFFFF;
   border-right: 2px solid;
   font-size: 0.9em;
 }
-th:first-child {
+.user_th:first-child {
   text-align: left;
 }
-th:last-child {
+.user_th:last-child {
   border-right: none;
 }
-td {
+.user_td {
   vertical-align: top;
   background: #87CEFA;
   color: #000080;
@@ -33,11 +33,11 @@ td {
   border-bottom: 2px solid aliceblue;
   border-right: 2px solid #56433D;
 }
-td:first-child {
+.user_td:first-child {
   vertical-align: top;
   border-left: 2px solid #56433D;
 }
-td:nth-child(2){
+.user_td:nth-child(2){
   vertical-align: top;
   text-align: left;
 }

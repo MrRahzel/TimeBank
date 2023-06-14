@@ -16,6 +16,8 @@ from django.db.models import Sum
 
 from .apps import model_st
 import random
+from statistics import mean
+from collections import Counter
 
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.contrib.auth import login, authenticate
@@ -76,6 +78,7 @@ def profile(request):
     if not request.user.is_authenticated:
         return redirect('signup_before')
     else:
+        query = ""
         msg=""
         if request.method == "POST":
             try:
@@ -109,7 +112,7 @@ def profile(request):
         usver = Usvers.objects.get(user=request.user)
         user2 = Usvers.objects.all()
 
-        return render(request,'profile.html',{"balance":usver.balance, "NKO_name":usver.NKO_name, "is_NKO":usver.is_NKO, "phone":usver.phone,"msg":msg, "userlist" : user2})
+        return render(request,'profile.html',{"balance":usver.balance, "NKO_name":usver.NKO_name, "is_NKO":usver.is_NKO, "phone":usver.phone,"msg":msg, "userlist" : user2, "query":query})
 
 import datetime
 def totaldonation(request):
@@ -187,13 +190,11 @@ def advertisement(request, id):
         view_c.save()
         tel = User.objects.select_related("Usvers").all()
 
-
         context = {
             "object_list":object_list, 
             "tel":tel,
         }
-       
-           
+             
     return render(request,'advertisement.html', context)
 
 def recomendations(request, id):
@@ -202,8 +203,13 @@ def recomendations(request, id):
     else:
         object_list = Products.objects.get(id=id)
         tel = User.objects.select_related("Usvers").all()
+        seeings = Product_views.objects.filter(user_id = request.user).values_list('product', flat=True)
+        seeings_count = Product_views.objects.filter(user_id = request.user).count()
 
-    
+
+        
+
+
         #Рекомендации
         it = {}
         for p in range(511):
@@ -218,17 +224,38 @@ def recomendations(request, id):
                     #it.append(abs(object_list2 - iter))
                     it[iter[0]] = (abs(object_list2[1] - iter[1]))
         
-        a = random.choice(list(it.items()))
-        b = random.choice(list(it.items()))
-        c = random.choice(list(it.items()))
-        d = random.choice(list(it.items()))
-        e = random.choice(list(it.items()))
+        if seeings_count < 10:
+            a = random.choice(list(it.items()))
+            b = random.choice(list(it.items()))
+            c = random.choice(list(it.items()))
+            d = random.choice(list(it.items()))
+            e = random.choice(list(it.items()))
 
-        rec1 = Products.objects.get(id = a[0])
-        rec2 = Products.objects.get(id = b[0]) 
-        rec3 = Products.objects.get(id = c[0]) 
-        rec4 = Products.objects.get(id = d[0]) 
-        rec5 = Products.objects.get(id = e[0]) 
+            rec1 = Products.objects.get(id = a[0])
+            rec2 = Products.objects.get(id = b[0]) 
+            rec3 = Products.objects.get(id = c[0]) 
+            rec4 = Products.objects.get(id = d[0]) 
+            rec5 = Products.objects.get(id = e[0]) 
+        else:
+            seeings_arr = seeings[(len(seeings)-10):]
+            seeings_arr2 = []
+            for i in range(len(seeings_arr)):
+                seeings_arr2.insert(i, Products.objects.filter(name = seeings_arr[i]).values_list('id', f'v{p}')[0])
+
+            seeings_arr3 = random.choices(seeings_arr2, k=5)
+            
+
+            a = seeings_arr3[0][0]
+            b = seeings_arr3[1][0]
+            c = seeings_arr3[2][0]  
+            d = seeings_arr3[3][0]  
+            e = seeings_arr3[4][0]    
+
+            rec1 = Products.objects.get(id = a)
+            rec2 = Products.objects.get(id = b) 
+            rec3 = Products.objects.get(id = c) 
+            rec4 = Products.objects.get(id = d) 
+            rec5 = Products.objects.get(id = e)
 
         context = {
             "object_list":object_list, 
@@ -244,6 +271,85 @@ def recomendations(request, id):
            
     return render(request,'recomendations.html', context)
 
+def chat_helper(request):
+    if not request.user.is_authenticated:
+        return redirect('signup_before')
+    else:
+        rec1, rec2, rec3, rec4, rec5, rec6, rec7, rec8, rec9, rec10 = 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        shet = Products.objects.all().count()#Счёт вчех продуктов
+        query = request.GET.get('q', '')
+        print(query)
+
+        def array_dist(arr1,arr2): #Функция прогонки расстояния двух массивов
+            if len(arr1)!=len(arr2):
+                raise TypeError('Length Difference')
+            summ=0.0
+            for i in range(len(arr1)):
+                summ+= (arr1[i]-arr2[i])*(arr1[i]-arr2[i])
+            return math.sqrt(summ)
+
+        if query == "":
+            print('Не введён запрос!')
+            object_list = ''
+        else:
+            z = len(query) - 3
+            if len(query) < 4:
+                query += 'абв'   
+            object_list = Products.objects.filter(name__iregex = query[z], is_saled = False)
+            query2 = model_st.encode(query)
+
+            #Рекомендации
+            it1 = [] #Промежуточный массив для продуктов, с которыми сравниваем
+            arr1 = [] #Vассив векторов описания для продуктов, с которыми сравниваем
+            id_arr = []
+            res = [] #Результат прогонки дистанции
+            ids = Products.objects.values_list('id')
+            for id in range(shet):
+                id_arr.append(ids[id][0])
+                for p in range(512):
+                    instance = Products.objects.values_list('id', f'v{p}').get(id=id_arr[id])
+                    it1.append(instance)
+                    arr1.append(it1[p][1]) #Берём значение вектора
+                res.append(array_dist(arr1,query2))
+                arr1.clear()
+                it1.clear()            
+    
+            #print(arr2)
+            mass = dict(zip(id_arr, res)) #Соединяем массив idшников и массив результатов прогонки(чтобы определить товары в рекомендации)
+            c = Counter(mass)
+            #print(mass)
+            #print(c)
+            most_common = c.most_common(10) #10 наибольших значений в результате
+            print(most_common)
+            #print(object_list2)
+            rec1 = Products.objects.get(id = most_common[0][0])
+            rec2 = Products.objects.get(id = most_common[1][0]) 
+            rec3 = Products.objects.get(id = most_common[2][0]) 
+            rec4 = Products.objects.get(id = most_common[3][0]) 
+            rec5 = Products.objects.get(id = most_common[4][0])
+            rec6 = Products.objects.get(id = most_common[5][0])
+            rec7 = Products.objects.get(id = most_common[6][0]) 
+            rec8 = Products.objects.get(id = most_common[7][0]) 
+            rec9 = Products.objects.get(id = most_common[8][0]) 
+            rec10 = Products.objects.get(id = most_common[9][0])
+             
+        
+        context = { 
+            "object_list":object_list,
+            "query":query,
+            "rec1":rec1,
+            "rec2":rec2,
+            "rec3":rec3,
+            "rec4":rec4,
+            "rec5":rec5,
+            "rec6":rec6,
+            "rec7":rec7,
+            "rec8":rec8,
+            "rec9":rec9,
+            "rec10":rec10
+        }      
+           
+    return render(request,'test.html', context)
 
 def transact(request):
     if not request.user.is_authenticated:
@@ -254,6 +360,7 @@ def transact(request):
         count = Transacts.objects.filter(user11 = request.user.username).count()
         context = {'transactions': tr, 'self_transactions': selftr, 'count':count}
         return render(request, 'transactions.html', context)
+
 
 def cancel(request, id):
     #try:
@@ -457,7 +564,9 @@ def search(request):
         if query == "":
             object_list = ""
         else:
-            z = len(query) - 3   
+            z = len(query) - 3
+            if len(query) < 4:
+                query += 'абв'   
             ct = request.GET.get('ct')
             #display_type = request.GET.get("display_type", None)
             display_type = 'other'

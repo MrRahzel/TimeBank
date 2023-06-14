@@ -43,6 +43,8 @@ urlpatterns = [
     path('profile/ads/delete/<int:id>/', delete),
     path('profile/ads/changeS/<int:id>/', changeS),
     path('profile/search/', search, name='search'),
+    path('profile/test', chat_helper, name="test"),
+
 
 
 
